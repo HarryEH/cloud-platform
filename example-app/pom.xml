@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>romaniancoder</groupId>
-    <artifactId>BookingDemo</artifactId>
+    <groupId>com.howarth</groupId>
+    <artifactId>LibrarySpaceFinder</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>SpringBootWAR</name>
-    <description>Demo project for deploying Spring Boot apps (packaged as WARs) to a Tomcat server</description>
+    <name>LibrarySpaceFinder</name>
+    <description>Demo project for deploying Spring Boot apps for the team</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -74,7 +74,7 @@
     </dependencies>
 
     <build>
-        <finalName>booking-app</finalName>
+        <finalName>library</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -1,4 +1,4 @@
-package romaniancoder.booking;
+package com.howarth.booking;
 
 import org.springframework.web.bind.annotation.*;
 

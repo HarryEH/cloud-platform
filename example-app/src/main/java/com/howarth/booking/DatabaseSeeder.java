@@ -1,4 +1,4 @@
-package romaniancoder.booking;
+package com.howarth.booking;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
