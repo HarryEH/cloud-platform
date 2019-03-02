@@ -5,9 +5,6 @@
     <title>Hotel Booking App</title>
     <link th:if="${mode == 'development'}" rel="stylesheet" href="../static/bootstrap.css" th:href="@{/bootstrap.css}" />
     <link th:if="${mode == 'production'}" rel="stylesheet" href="../static/bootstrap.min.css" th:href="@{/bootstrap.min.css}" />
-    <script type="text/javascript" src="/static/angular.min.js" th:src="@{/angular.min.js}"></script>
-    <script type="text/javascript" src="/static/app/app.module.js" th:src="@{/app/app.module.js}"></script>
-    <script type="text/javascript" src="/static/app/bookings.controller.js" th:src="@{/app/bookings.controller.js}"></script>
 </head>
 <body ng-app="app" ng-controller="BookingsController as vm">
 <header>
@@ -26,10 +23,10 @@
         <div class="col-lg-offset-2 col-lg-8">
             <!-- Get all bookings or only affordable ones -->
             <div class="btn-group" role="group">
-                <button ng-click="vm.getAll()" type="button" class="btn btn-default">All</button>
-                <button ng-click="vm.getAffordable()" type="button" class="btn btn-default">Less than 100$</button>
+                <!-- <button ng-click="vm.getAll()" type="button" class="btn btn-default">All</button>
+                <button ng-click="vm.getAffordable()" type="button" class="btn btn-default">Less than 100$</button> -->
             </div>
-            <button class="btn btn-info" ng-click="vm.create()">Create</button>
+            <!-- <button class="btn btn-info" ng-click="vm.create()">Create</button> -->
 
             <!-- Display bookings in a table -->
             <table class="table">
@@ -43,7 +40,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="booking in vm.bookings">
+                <!-- <tr ng-repeat="booking in vm.bookings">
                     <td>{{booking.hotelName}}</td>
                     <td>{{booking.nbOfNights}}</td>
                     <td>{{booking.pricePerNight}}</td>
@@ -51,7 +48,7 @@
                     <td>
                         <button class="btn btn-danger" ng-click="vm.deleteBooking(booking.id)">Delete</button>
                     </td>
-                </tr>
+                </tr> -->
                 </tbody>
             </table>
 
