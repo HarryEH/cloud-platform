@@ -1,4 +1,4 @@
-package com.howarth.booking;
+package com.howarth.library;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

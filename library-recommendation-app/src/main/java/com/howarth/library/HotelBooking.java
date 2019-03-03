@@ -1,4 +1,4 @@
-package com.howarth.booking;
+package com.howarth.library;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

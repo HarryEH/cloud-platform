@@ -1,4 +1,4 @@
-package com.howarth.booking;
+package com.howarth.library;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
