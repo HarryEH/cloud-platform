@@ -1,14 +1,14 @@
 package com.howarth.library;
 
+import com.howarth.library.database.model.IcStatistic;
+import com.howarth.library.database.model.RhhStatistic;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 
 import com.howarth.library.database.DiamondRepository;
-import com.howarth.library.database.DiamondStatistics;
+import com.howarth.library.database.model.DiamondStatistic;
 import com.howarth.library.database.IcRepository;
-import com.howarth.library.database.IcStatistics;
 import com.howarth.library.database.RhhRepository;
-import com.howarth.library.database.RhhStatistics;
 
 import java.util.List;
 
@@ -27,35 +27,32 @@ public class ApiController {
   }
 
     @GetMapping("/diamond")
-    public String diamond() {
-        int num = diamondRepository.findTopByOrderByIdDesc().getNumberOfPeople();
-        return new Integer(num).toString();
+    public DiamondStatistic diamond() {
+        return diamondRepository.findTopByOrderByIdDesc();
     }
 
     @GetMapping("/ic")
-    public String ic(){
-      int num = icRepository.findTopByOrderByIdDesc().getNumberOfPeople();
-      return new Integer(num).toString();
+    public IcStatistic ic(){
+      return icRepository.findTopByOrderByIdDesc();
     }
 
     @GetMapping("/rhh")
-    public String rhh(){
-      int num = rhhRepository.findTopByOrderByIdDesc().getNumberOfPeople();
-      return new Integer(num).toString();
+    public RhhStatistic rhh(){
+      return rhhRepository.findTopByOrderByIdDesc();
     }
 
     @GetMapping("/diamond/all")
-    public List<DiamondStatistics> allDiamond() {
+    public List<DiamondStatistic> allDiamond() {
       return diamondRepository.findAll();
     }
 
     @GetMapping("/ic/all")
-    public List<IcStatistics> allIc(){
+    public List<IcStatistic> allIc(){
       return icRepository.findAll();
     }
 
     @GetMapping("/rhh/all")
-    public List<RhhStatistics> allRhh(){
+    public List<RhhStatistic> allRhh(){
       return rhhRepository.findAll();
     }
 }

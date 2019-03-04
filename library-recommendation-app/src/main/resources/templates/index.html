@@ -11,10 +11,70 @@
   </head>
 
   <body>
-    <h1>They all suck</h1>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Cloud</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="display-4">Library Space Finder</h1>
+        <p class="lead">This webpage makes student's lives easier by telling you which library you have the best chance of getting a seat at.</p>
+        <hr class="my-4"></hr>
+        <p>We collect real time data and use this to tell you which library to go to.</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" id="whichLibrary" href="#" role="button">Which Library?!</a>
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="images/diamond.jpg" alt="library image"></img>
+            <div class="card-body">
+              <h5 class="card-title">Diamond</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a id="diamondCount" href="#" class="btn btn-primary">Live Count</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="images/ic.jpg" alt="library image"></img>
+            <div class="card-body">
+              <h5 class="card-title">Information Commons</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a id="icCount" href="#" class="btn btn-primary">Live Count</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="images/rhh.jpg" alt="library image"></img>
+            <div class="card-body">
+              <h5 class="card-title">Medical School</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a id="rhhCount" href="#" class="btn btn-primary">Live Count</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

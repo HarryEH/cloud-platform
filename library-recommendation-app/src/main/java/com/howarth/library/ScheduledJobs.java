@@ -1,5 +1,7 @@
 package com.howarth.library;
 
+import com.howarth.library.database.model.IcStatistic;
+import com.howarth.library.database.model.RhhStatistic;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -8,9 +10,7 @@ import java.net.*;
 import com.howarth.library.database.DiamondRepository;
 import com.howarth.library.database.IcRepository;
 import com.howarth.library.database.RhhRepository;
-import com.howarth.library.database.DiamondStatistics;
-import com.howarth.library.database.IcStatistics;
-import com.howarth.library.database.RhhStatistics;
+import com.howarth.library.database.model.DiamondStatistic;
 
 import java.io.*;
 
@@ -31,19 +31,19 @@ public class ScheduledJobs {
 
   @Scheduled(fixedRate = 30000)
   public void scheduleTaskDiamond() {
-    DiamondStatistics dia = new DiamondStatistics(genericLibraryGet("diamond"));
+    DiamondStatistic dia = new DiamondStatistic(genericLibraryGet("diamond"));
     diamondRepository.save(dia);
   }
 
   @Scheduled(fixedRate = 30000)
   public void scheduleTaskIc() {
-    IcStatistics ic = new IcStatistics(genericLibraryGet("ic"));
+    IcStatistic ic = new IcStatistic(genericLibraryGet("ic"));
     icRepository.save(ic);
   }
 
   @Scheduled(fixedRate = 30000)
   public void scheduleTaskRhh() {
-    RhhStatistics rhh = new RhhStatistics(genericLibraryGet("rhh"));
+    RhhStatistic rhh = new RhhStatistic(genericLibraryGet("rhh"));
     rhhRepository.save(rhh);
   }
 

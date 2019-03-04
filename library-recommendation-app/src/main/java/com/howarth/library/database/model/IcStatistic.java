@@ -1,19 +1,12 @@
-package com.howarth.library.database;
+package com.howarth.library.database.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-
-
-import org.hibernate.annotations.*;
-
 @Entity
-public class RhhStatistics {
+public class IcStatistic {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -22,12 +15,11 @@ public class RhhStatistics {
     @CreationTimestamp
     @Column
     private Timestamp createdDate;
-
     private int numberOfPeople;
 
-    public RhhStatistics(){}
+    public IcStatistic(){}
 
-    public RhhStatistics(int numberOfPeople){
+    public IcStatistic(int numberOfPeople){
         this.numberOfPeople = numberOfPeople;
     }
 
@@ -38,6 +30,7 @@ public class RhhStatistics {
     public Timestamp getCreatedDate() {
       return createdDate;
     }
+
 
     public long getId() {
         return id;

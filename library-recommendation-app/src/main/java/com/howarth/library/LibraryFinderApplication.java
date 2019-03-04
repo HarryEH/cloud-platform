@@ -8,14 +8,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class BookingDemoApplication extends SpringBootServletInitializer {
+public class LibraryFinderApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(BookingDemoApplication.class, args);
+        SpringApplication.run(LibraryFinderApplication.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(BookingDemoApplication.class);
+        return builder.sources(LibraryFinderApplication.class);
     }
 }
