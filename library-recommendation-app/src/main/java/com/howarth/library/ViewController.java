@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Controller
 public class ViewController {
-    private String appMode;
+//    private String appMode;
 
     private DiamondRepository diamondRepository;
     private IcRepository icRepository;
@@ -22,7 +22,7 @@ public class ViewController {
         this.diamondRepository = diamondRepository;
         this.icRepository = icRepository;
         this.rhhRepository = rhhRepository;
-        appMode = environment.getProperty("app-mode");
+//        appMode = environment.getProperty("app-mode");
     }
 
     @GetMapping("/")
