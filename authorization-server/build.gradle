@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.9.RELEASE'
+		springBootVersion = '1.5.19.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -11,10 +11,11 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+//apply plugin: 'eclipse'
+apply plugin: 'maven'
 apply plugin: 'org.springframework.boot'
 
-group = 'com.talk2amareswaran.projects'
+group = 'ac.uk.sheffield.cloud'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
