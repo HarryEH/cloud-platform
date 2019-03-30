@@ -32,4 +32,10 @@ public class ViewController {
 
         return "index";
     }
+
+    @GetMapping("/error")
+    public String error(Model model){
+
+        return "error";
+    }
 }
