@@ -62,8 +62,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             if (token.contains("access_token=")) {
                 String cookie[] = token.split("access_token=");
 
-                System.out.println(Arrays.toString(cookie));
-
                 if ( cookie.length == 2 ) {
                     if (cookie[0].equals("")) {
                         String qqq[] = cookie[1].split("; JSESSIONID");
@@ -79,7 +77,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     return null;
                 }
 
-                System.out.println(token);
 
                 String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
                         .build()
