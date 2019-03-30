@@ -1,4 +1,4 @@
-package com.auth0.samples.authapi.springbootauthupdated;
+package com.howarth.cloud.auth.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

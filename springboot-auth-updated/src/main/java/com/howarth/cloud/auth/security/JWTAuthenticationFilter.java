@@ -1,7 +1,8 @@
-package com.auth0.samples.authapi.springbootauthupdated.security;
+package com.howarth.cloud.auth.security;
 
 import com.auth0.jwt.JWT;
-import com.auth0.samples.authapi.springbootauthupdated.user.ApplicationUser;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.howarth.cloud.auth.user.ApplicationUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,10 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-import static com.auth0.samples.authapi.springbootauthupdated.security.SecurityConstants.EXPIRATION_TIME;
-import static com.auth0.samples.authapi.springbootauthupdated.security.SecurityConstants.HEADER_STRING;
-import static com.auth0.samples.authapi.springbootauthupdated.security.SecurityConstants.SECRET;
-import static com.auth0.samples.authapi.springbootauthupdated.security.SecurityConstants.TOKEN_PREFIX;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
@@ -58,13 +55,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication auth) throws IOException, ServletException {
         String token = JWT.create()
                 .withSubject(((User) auth.getPrincipal()).getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(HMAC512(SECRET.getBytes()));
-        res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
+                .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
+        res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
 
         res.addCookie(new Cookie("access_token", token));
 
-        String resp = "{ \"access_token\":\""+token+"\", \"expires_in\":\""+EXPIRATION_TIME + "\" }";
+        String resp = "{ \"access_token\":\""+token+"\", \"expires_in\":\""+ SecurityConstants.EXPIRATION_TIME + "\" }";
 
         res.getWriter().write(resp);
         res.getWriter().flush();

@@ -1,4 +1,4 @@
-package com.auth0.samples.authapi.springbootauthupdated.security;
+package com.howarth.cloud.auth.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static com.auth0.samples.authapi.springbootauthupdated.security.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -42,12 +40,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
+        String token = request.getHeader(SecurityConstants.HEADER_STRING);
         if (token != null) {
             // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+            String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
                     .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
                     .getSubject();
 
             if (user != null) {
@@ -55,7 +53,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             }
             return null;
         } else {
-            token = request.getHeader(COOKIE);
+            token = request.getHeader(SecurityConstants.COOKIE);
 
             if (token == null) {
                 return null;
@@ -83,7 +81,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
                 System.out.println(token);
 
-                String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
                         .build()
                         .verify(token)
                         .getSubject();

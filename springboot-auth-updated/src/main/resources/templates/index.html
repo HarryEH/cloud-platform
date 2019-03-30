@@ -53,7 +53,7 @@
           url: "/login",
           data: JSON.stringify({password: $('#password').val(), username: $('#username').val()}),
           success: function(data, textStatus, request){
-            console.log(request.getResponseHeader('Authorization'));
+            window.location.replace("/tasks");
           },
           error: function (request, textStatus, errorThrown) {
             console.error(request.getResponseHeader('Authorization'));

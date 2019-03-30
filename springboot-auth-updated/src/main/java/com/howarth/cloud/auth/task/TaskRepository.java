@@ -1,4 +1,4 @@
-package com.auth0.samples.authapi.springbootauthupdated.task;
+package com.howarth.cloud.auth.task;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

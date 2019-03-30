@@ -1,4 +1,4 @@
-package com.auth0.samples.authapi.springbootauthupdated.security;
+package com.howarth.cloud.auth.security;
 
 public class SecurityConstants {
     public static final String SECRET = "SecretKeyToGenJWTs";

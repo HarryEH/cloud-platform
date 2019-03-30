@@ -1,4 +1,4 @@
-package com.auth0.samples.authapi.springbootauthupdated.user;
+package com.howarth.cloud.auth.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
