@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import static com.auth0.samples.authapi.springbootauthupdated.security.SecurityConstants.HEADER_STRING;
-import static com.auth0.samples.authapi.springbootauthupdated.security.SecurityConstants.SECRET;
-import static com.auth0.samples.authapi.springbootauthupdated.security.SecurityConstants.TOKEN_PREFIX;
+import static com.auth0.samples.authapi.springbootauthupdated.security.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -28,12 +27,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
-        String header = req.getHeader(HEADER_STRING);
-
-        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
-            chain.doFilter(req, res);
-            return;
-        }
+//        String header = req.getHeader(HEADER_STRING);
+//
+//        if (header == null) {
+//            header = req.getHeader(COOKIE);
+//        } else if (!header.startsWith(TOKEN_PREFIX)) {
+//            return;
+//        }
 
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
@@ -54,7 +54,49 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
             return null;
+        } else {
+            token = request.getHeader(COOKIE);
+
+            if (token == null) {
+                return null;
+            }
+
+            if (token.contains("access_token=")) {
+                String cookie[] = token.split("access_token=");
+
+                System.out.println(Arrays.toString(cookie));
+
+                if ( cookie.length == 2 ) {
+                    if (cookie[0].equals("")) {
+                        String qqq[] = cookie[1].split("; JSESSIONID");
+                        if (qqq.length == 2) {
+                            token = qqq[0];
+                        } else {
+                            return null;
+                        }
+                    } else {
+                        token = cookie[1];
+                    }
+                } else {
+                    return null;
+                }
+
+                System.out.println(token);
+
+                String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                        .build()
+                        .verify(token)
+                        .getSubject();
+
+                if (user != null) {
+                    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                }
+                return null;
+            } else {
+                return null;
+            }
+
+
         }
-        return null;
     }
 }

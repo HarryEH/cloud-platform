@@ -26,12 +26,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
-        String header = req.getHeader(HEADER_STRING);
-
-        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
-            chain.doFilter(req, res);
-            return;
-        }
 
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
@@ -40,6 +34,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+        System.out.println("\n\n\nWOWZA its actually doing stuff");
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
@@ -52,7 +47,44 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
             return null;
+        } else {
+            token = request.getHeader(COOKIE);
+
+            if (token == null) {
+                return null;
+            }
+
+            if (token.contains("access_token=")) {
+                String cookie[] = token.split("access_token=");
+
+                if ( cookie.length == 2 ) {
+                    if (cookie[0].equals("")) {
+                        String qqq[] = cookie[1].split("; JSESSIONID");
+                        if (qqq.length == 2) {
+                            token = qqq[0];
+                        } else {
+                            return null;
+                        }
+                    } else {
+                        token = cookie[1];
+                    }
+                } else {
+                    return null;
+                }
+
+                String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                        .build()
+                        .verify(token)
+                        .getSubject();
+
+                if (user != null) {
+                    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                }
+                return null;
+            } else {
+                return null;
+            }
+
         }
-        return null;
     }
 }
