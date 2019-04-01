@@ -1,4 +1,4 @@
-package com.howarth.cloud.auth.security;
+package com.howarth.cloud.mainapp.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 

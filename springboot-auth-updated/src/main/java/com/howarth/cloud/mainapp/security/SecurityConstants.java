@@ -1,4 +1,4 @@
-package com.howarth.cloud.auth.security;
+package com.howarth.cloud.mainapp.security;
 
 public class SecurityConstants {
     public static final String SECRET = "SecretKeyToGenJWTs";

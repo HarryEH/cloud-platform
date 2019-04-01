@@ -1,4 +1,4 @@
-package com.howarth.cloud.auth.user;
+package com.howarth.cloud.mainapp.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

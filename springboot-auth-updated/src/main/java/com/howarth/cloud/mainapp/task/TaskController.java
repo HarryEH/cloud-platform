@@ -1,4 +1,4 @@
-package com.howarth.cloud.auth.task;
+package com.howarth.cloud.mainapp.task;
 
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -1,4 +1,4 @@
-package com.howarth.cloud.auth.task;
+package com.howarth.cloud.mainapp.task;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

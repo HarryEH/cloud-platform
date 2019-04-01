@@ -7,7 +7,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
-    <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Home</title>
   </head>
 
   <body>
@@ -22,9 +25,6 @@
 
         <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home</a>
-            </li>
           </ul>
         </div>
       </nav>
@@ -32,31 +32,89 @@
 
     <div class="container">
 
-      <form action="/login" method="post">
-        <input type="text" id="username" class="" name="username" placeholder="username"></input>
-        <input type="text" id="password" class="" name="password" placeholder="password"></input>
-        <input type="submit" id="foormSubmit" class="" value="Submit"></input>
-      </form>
+        <div class="jumbotron">
+          <h1 class="display-4">Academic Gateway</h1>
+          <p class="lead">This hosting platforms acts as a home to many apps to make student lives easier. See our apps below! Sign-up and login to use them!</p>
+          <hr class="my-4"></hr>
+
+          <div class="row justify-content-around">
+            <div class="col-sm-5">
+              <form>
+                <div class="form-group">
+                  <label for="signupUsername">Username:</label>
+                  <input type="text" id="signupUsername" class="form-control" name="username" placeholder="Username"></input>
+                </div>
+                <div class="form-group">
+                  <label for="signupPassword">Password:</label>
+                  <input type="password" id="signupPassword" class="form-control" name="password" placeholder="Password"></input>
+                </div>
+
+                <input type="submit" id="signupSubmit" class="btn btn-warning" value="Sign Up"></input>
+              </form>
+            </div>
+
+            <div class="col-sm-5">
+              <form>
+                <div class="form-group">
+                  <label for="username">Username:</label>
+                  <input type="text" id="username" class="form-control" name="username" placeholder="Username"></input>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password:</label>
+                  <input type="password" id="password" class="form-control" name="password" placeholder="Password"></input>
+                </div>
+
+                <input type="submit" id="loginSubmit" class="btn btn-primary" value="Sign In"></input>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+
+
 
     </div>
 
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
-      $("#foormSubmit").click(function(e) {
+      $("#loginSubmit").click(function(e) {
         e.preventDefault();
         $.ajax({
           type: "POST",
           url: "/login",
           data: JSON.stringify({password: $('#password').val(), username: $('#username').val()}),
           success: function(data, textStatus, request){
-            window.location.replace("/tasks");
+            $('#password').val("");
+            $('#username').val("");
+            alert("Success! Logged in.");
           },
           error: function (request, textStatus, errorThrown) {
-            console.error(request.getResponseHeader('Authorization'));
+            $('#password').val("");
+            alert("Failure! Please try again\n"+ errorThrown);
+          },
+          dataType: "json",
+          contentType : "application/json"
+        });
+      });
+      $("#signupSubmit").click(function(e) {
+        e.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: "/users/sign-up",
+          data: JSON.stringify({password: $('#signupPassword').val(), username: $('#signupUsername').val()}),
+          success: function(data, textStatus, request){
+            $('#password').val($('#signupPassword').val());
+            $('#username').val($('#signupUsername').val());
+            $("#loginSubmit").click();
+            $('#signupPassword').val("");
+            $('#signupUsername').val("");
+            alert("Success! Signed up.");
+          },
+          error: function (request, textStatus, errorThrown) {
+            $('#signupPassword').val("");
+            alert("Failure! Please try again\nPlease try a different username.\n" + errorThrown);
           },
           dataType: "json",
           contentType : "application/json"
