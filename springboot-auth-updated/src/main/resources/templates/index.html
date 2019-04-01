@@ -17,7 +17,7 @@
 
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Academic Gateway</a>
+        <a class="navbar-brand" href="/home">Academic Gateway</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -69,6 +69,26 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-10">
+            <table border="1">
+              <th>Name</th>
+              <th>Image</th>
+              <th>Link</th>
+              <tr th:each="app : ${apps}">
+                <td th:text="${app.name}">
+                </td>
+                <td th:text="${app.logo}">
+                </td>
+                <td>
+                  <a th:href="${app.name}" th:text="${app.name}"></a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
     </div>
 
 
@@ -78,7 +98,7 @@
         e.preventDefault();
         $.ajax({
           type: "POST",
-          url: "/login",
+          url: "/home/login",
           data: JSON.stringify({password: $('#password').val(), username: $('#username').val()}),
           success: function(data, textStatus, request){
             $('#password').val("");
@@ -97,7 +117,7 @@
         e.preventDefault();
         $.ajax({
           type: "POST",
-          url: "/users/sign-up",
+          url: "/home/users/sign-up",
           data: JSON.stringify({password: $('#signupPassword').val(), username: $('#signupUsername').val()}),
           success: function(data, textStatus, request){
             $('#password').val($('#signupPassword').val());

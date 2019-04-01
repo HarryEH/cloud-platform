@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class FileUploadController {
 
+    public static final String REDIRECT_HOME_UPLOAD = "redirect:/upload";
     private final StorageService storageService;
     private final ApplicationAppRepository applicationAppRepository;
 
@@ -49,7 +50,7 @@ public class FileUploadController {
         if (logo == null || file == null || description == null) {
             redirectAttributes.addFlashAttribute("message",
                     "You missed a required field!");
-            return "redirect:/upload";
+            return REDIRECT_HOME_UPLOAD;
         }
 
         String filename = file.getOriginalFilename().replace(".war", "");
@@ -57,43 +58,47 @@ public class FileUploadController {
         if (!logo.getContentType().contains("image")) {
             redirectAttributes.addFlashAttribute("message",
                     "The logo was not an image...");
-            return "redirect:/upload";
+            return REDIRECT_HOME_UPLOAD;
         }
 
         if (!file.getOriginalFilename().contains("war")) {
             redirectAttributes.addFlashAttribute("message",
                     "The application was not a war...");
-            return "redirect:/upload";
+            return REDIRECT_HOME_UPLOAD;
         }
 
         if (applicationAppRepository.findByName(filename) != null) {
             redirectAttributes.addFlashAttribute("message",
                     "Please rename your .war file.");
-            return "redirect:/upload";
+            return REDIRECT_HOME_UPLOAD;
         }
 
-        ApplicationApp applicationApp = new ApplicationApp();
-        applicationApp.setDescription(description);
-        applicationApp.setName(filename);
-        applicationApp.setLogo(filename +"-"+ logo.getOriginalFilename());
 
-        applicationAppRepository.save(applicationApp);
+        System.out.println("\n\nWorking Directory = " +
+                System.getProperty("user.dir") + "\n\n");
 
         // Store the images
         storageService.store(logo);
         storageService.store(file);
+
+        ApplicationApp applicationApp = new ApplicationApp();
+        applicationApp.setDescription(description);
+        applicationApp.setName(filename);
+        applicationApp.setLogo(logo.getOriginalFilename());
+
+        applicationAppRepository.save(applicationApp);
 
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
         // ADD COMMAND LINE runner!!
         try {
-            Process p = Runtime.getRuntime().exec("cp upload-dir/"+file.getOriginalFilename()+" ../");
+            Process p = Runtime.getRuntime().exec("cp ~/upload-dir/"+file.getOriginalFilename()+" ../");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return "redirect:/upload";
+        return REDIRECT_HOME_UPLOAD;
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
