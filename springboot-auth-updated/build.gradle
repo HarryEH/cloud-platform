@@ -33,5 +33,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-devtools")
 	compile("com.auth0:java-jwt:3.4.0")
 	compile("org.hsqldb:hsqldb")
+	compile('mysql:mysql-connector-java')
+	compile(group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4')
 
 }
