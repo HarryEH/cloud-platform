@@ -10,11 +10,6 @@ public class ViewController {
     public ViewController() {
     }
 
-    @GetMapping("/users/sign-in")
-    public String signIn(Model model){
-        return "sign-in";
-    }
-
     /**
      * //TODO pass in all of the uploaded apps
      * //TODO

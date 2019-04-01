@@ -19,6 +19,8 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    //INFO: /login is automatically handled
+
     @PostMapping("/sign-up")
     public ApplicationUser signUp(@RequestBody ApplicationUser user) {
         if (applicationUserRepository.findByUsername(user.getUsername()) != null) {
