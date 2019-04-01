@@ -1,4 +1,4 @@
-package hello.storage;
+package com.howarth.cloud.mainapp.uploads.storage;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;

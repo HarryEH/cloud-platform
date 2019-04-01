@@ -1,4 +1,4 @@
-package hello.storage;
+package com.howarth.cloud.mainapp.uploads.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
