@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 
 @RestController
@@ -37,10 +38,17 @@ public class UserController {
 
 
     @GetMapping("/verify_token")
-    public VerifiedToken verify(@Param("access_token") String token) {
-        String user = verifyToken(token, SecurityConstants.SECRET, "");
+    public VerifiedToken verify(@Param("access_token") String access_token) {
 
-        return new VerifiedToken(user, user != null);
+        System.out.println("\n\n"+access_token+"\n\n");
+
+        try {
+            String user = verifyToken(access_token, SecurityConstants.SECRET, "");
+            return new VerifiedToken(user, user != null);
+        } catch (NullPointerException ex) {
+            return new VerifiedToken("-", false);
+        }
+
     }
 
     private String verifyToken(final String token, final String secret, final String prefix) {
