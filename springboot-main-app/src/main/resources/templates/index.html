@@ -74,12 +74,12 @@
           <div class="col-md-10">
             <table border="1">
               <th>Name</th>
-              <th>Image</th>
+              <th>Description</th>
               <th>Link</th>
               <tr th:each="app : ${apps}">
                 <td th:text="${app.name}">
                 </td>
-                <td th:text="${app.logo}">
+                <td th:text="${app.description}">
                 </td>
                 <td>
                   <a th:href="${app.name}" th:text="${app.name}"></a>
