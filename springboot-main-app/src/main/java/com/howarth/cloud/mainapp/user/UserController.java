@@ -1,5 +1,9 @@
 package com.howarth.cloud.mainapp.user;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.howarth.cloud.mainapp.security.SecurityConstants;
+import com.howarth.cloud.mainapp.security.VerifiedToken;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -31,9 +35,19 @@ public class UserController {
         return user;
     }
 
-    @GetMapping("/verify")
-    public ApplicationUser verify(@Param("username") String username) {
-        return applicationUserRepository.findByUsername(username);
+
+    @GetMapping("/verify_token")
+    public VerifiedToken verify(@Param("access_token") String token) {
+        String user = verifyToken(token, SecurityConstants.SECRET, "");
+
+        return new VerifiedToken(user, user != null);
+    }
+
+    private String verifyToken(final String token, final String secret, final String prefix) {
+        return JWT.require(Algorithm.HMAC512(secret.getBytes()))
+                .build()
+                .verify(prefix.equals("") ? token : token.replace(prefix, ""))
+                .getSubject();
     }
 
     @GetMapping("/all")

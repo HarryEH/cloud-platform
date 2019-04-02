@@ -7,5 +7,5 @@ public class SecurityConstants {
     public static final String HEADER_STRING = "Authorization";
     public static final String COOKIE = "Cookie";
     public static final String SIGN_UP_URL = "/users/sign-up";
-    public static final String CHECK_USER_URL = "/users/verify";
+    public static final String CHECK_USER_URL = "/users/verify_token";
 }
