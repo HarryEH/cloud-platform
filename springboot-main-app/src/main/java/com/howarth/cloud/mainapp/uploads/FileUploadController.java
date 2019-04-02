@@ -93,7 +93,7 @@ public class FileUploadController {
 
         // ADD COMMAND LINE runner!!
         try {
-            Process p = Runtime.getRuntime().exec("cp ~/upload-dir/"+file.getOriginalFilename()+" ../");
+            Process p = Runtime.getRuntime().exec("cp /var/lib/tomcat8/webapps/ROOT/upload-dir/"+file.getOriginalFilename()+" /var/lib/tomcat8/webapps/");
         } catch (IOException e) {
             e.printStackTrace();
         }

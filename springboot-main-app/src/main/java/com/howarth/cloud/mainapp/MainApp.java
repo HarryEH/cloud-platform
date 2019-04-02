@@ -29,11 +29,11 @@ public class MainApp extends SpringBootServletInitializer  {
 		return builder.sources(MainApp.class);
 	}
 
-//	@Bean
-//	CommandLineRunner init(StorageService storageService) {
-//		return (args) -> {
-//			storageService.init();
-//		};
-//	}
+	@Bean
+	CommandLineRunner init(StorageService storageService) {
+		return (args) -> {
+			storageService.init();
+		};
+	}
 
 }

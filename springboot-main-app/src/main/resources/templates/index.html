@@ -98,7 +98,7 @@
         e.preventDefault();
         $.ajax({
           type: "POST",
-          url: "/home/login",
+          url: "/login",
           data: JSON.stringify({password: $('#password').val(), username: $('#username').val()}),
           success: function(data, textStatus, request){
             $('#password').val("");
@@ -117,7 +117,7 @@
         e.preventDefault();
         $.ajax({
           type: "POST",
-          url: "/home/users/sign-up",
+          url: "/users/sign-up",
           data: JSON.stringify({password: $('#signupPassword').val(), username: $('#signupUsername').val()}),
           success: function(data, textStatus, request){
             $('#password').val($('#signupPassword').val());

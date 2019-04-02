@@ -184,7 +184,7 @@
   </dependencyManagement>
 
   <build>
-      <finalName>home</finalName>
+      <finalName>ROOT</finalName>
       <plugins>
           <plugin>
               <groupId>org.springframework.boot</groupId>
