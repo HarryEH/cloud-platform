@@ -1,4 +1,4 @@
-package com.howarth.library;
+package com.howarth.cloud.mainapp.library;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

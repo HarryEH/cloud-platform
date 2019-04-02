@@ -1,7 +1,6 @@
-package com.howarth.library.database;
+package com.howarth.cloud.mainapp.library.database;
 
-import com.howarth.library.database.model.DiamondStatistic;
-import com.howarth.library.database.model.IcStatistic;
+import com.howarth.cloud.mainapp.library.database.model.IcStatistic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

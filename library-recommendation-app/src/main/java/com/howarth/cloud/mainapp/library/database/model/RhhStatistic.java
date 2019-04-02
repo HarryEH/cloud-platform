@@ -1,15 +1,12 @@
-package com.howarth.library.database.model;
+package com.howarth.cloud.mainapp.library.database.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
-import javax.persistence.Column;
-import org.hibernate.annotations.*;
 
 @Entity
-public class DiamondStatistic {
+public class RhhStatistic {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -20,9 +17,9 @@ public class DiamondStatistic {
     private Timestamp createdDate;
     private int numberOfPeople;
 
-    public DiamondStatistic(){}
+    public RhhStatistic(){}
 
-    public DiamondStatistic(int numberOfPeople){
+    public RhhStatistic(int numberOfPeople){
         this.numberOfPeople = numberOfPeople;
     }
 

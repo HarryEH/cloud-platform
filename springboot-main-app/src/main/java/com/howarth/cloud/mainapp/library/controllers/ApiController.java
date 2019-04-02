@@ -1,19 +1,19 @@
-package com.howarth.library;
+package com.howarth.cloud.mainapp.library.controllers;
 
-import com.howarth.library.database.model.IcStatistic;
-import com.howarth.library.database.model.RhhStatistic;
+import com.howarth.cloud.mainapp.library.database.DiamondRepository;
+import com.howarth.cloud.mainapp.library.database.IcRepository;
+import com.howarth.cloud.mainapp.library.database.RhhRepository;
+import com.howarth.cloud.mainapp.library.database.model.DiamondStatistic;
+import com.howarth.cloud.mainapp.library.database.model.IcStatistic;
+import com.howarth.cloud.mainapp.library.database.model.RhhStatistic;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.*;
-
-import com.howarth.library.database.DiamondRepository;
-import com.howarth.library.database.model.DiamondStatistic;
-import com.howarth.library.database.IcRepository;
-import com.howarth.library.database.RhhRepository;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/library/api")
 public class ApiController {
 
   private DiamondRepository diamondRepository;

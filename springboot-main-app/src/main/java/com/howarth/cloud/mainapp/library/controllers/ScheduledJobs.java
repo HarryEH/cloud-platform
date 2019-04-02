@@ -1,18 +1,20 @@
-package com.howarth.library;
+package com.howarth.cloud.mainapp.library.controllers;
 
-import com.howarth.library.database.model.IcStatistic;
-import com.howarth.library.database.model.RhhStatistic;
+import com.howarth.cloud.mainapp.library.database.DiamondRepository;
+import com.howarth.cloud.mainapp.library.database.IcRepository;
+import com.howarth.cloud.mainapp.library.database.RhhRepository;
+import com.howarth.cloud.mainapp.library.database.model.DiamondStatistic;
+import com.howarth.cloud.mainapp.library.database.model.IcStatistic;
+import com.howarth.cloud.mainapp.library.database.model.RhhStatistic;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.net.*;
-
-import com.howarth.library.database.DiamondRepository;
-import com.howarth.library.database.IcRepository;
-import com.howarth.library.database.RhhRepository;
-import com.howarth.library.database.model.DiamondStatistic;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 @Component
 public class ScheduledJobs {

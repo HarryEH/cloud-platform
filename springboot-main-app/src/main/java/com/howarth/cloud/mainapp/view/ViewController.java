@@ -26,4 +26,11 @@ public class ViewController {
         return "index";
     }
 
+    @GetMapping("/error")
+    public String error(Model model){
+        model.addAttribute("apps", applicationAppRepository.findAll());
+
+        return "error";
+    }
+
 }

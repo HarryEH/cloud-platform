@@ -1,4 +1,4 @@
-package com.howarth.library.database.model;
+package com.howarth.cloud.mainapp.library.database.model;
 
 import org.hibernate.annotations.CreationTimestamp;
 

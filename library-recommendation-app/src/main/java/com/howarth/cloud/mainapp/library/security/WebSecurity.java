@@ -1,4 +1,4 @@
-package com.howarth.library.security;
+package com.howarth.cloud.mainapp.library.security;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

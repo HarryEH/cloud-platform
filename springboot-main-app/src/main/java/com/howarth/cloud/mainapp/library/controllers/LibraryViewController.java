@@ -1,22 +1,24 @@
-package com.howarth.library;
+package com.howarth.cloud.mainapp.library.controllers;
 
-import com.howarth.library.database.DiamondRepository;
-import com.howarth.library.database.IcRepository;
-import com.howarth.library.database.RhhRepository;
+import com.howarth.cloud.mainapp.library.database.DiamondRepository;
+import com.howarth.cloud.mainapp.library.database.IcRepository;
+import com.howarth.cloud.mainapp.library.database.RhhRepository;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ViewController {
+@RequestMapping(value = "/library")
+public class LibraryViewController {
 //    private String appMode;
 
     private DiamondRepository diamondRepository;
     private IcRepository icRepository;
     private RhhRepository rhhRepository;
 
-    public ViewController(Environment environment, DiamondRepository diamondRepository, IcRepository icRepository, RhhRepository rhhRepository) {
+    public LibraryViewController(Environment environment, DiamondRepository diamondRepository, IcRepository icRepository, RhhRepository rhhRepository) {
         this.diamondRepository = diamondRepository;
         this.icRepository = icRepository;
         this.rhhRepository = rhhRepository;
@@ -30,12 +32,6 @@ public class ViewController {
         model.addAttribute("rhh", rhhRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         model.addAttribute("best", "Diamond");
 
-        return "index";
-    }
-
-    @GetMapping("/error")
-    public String error(Model model){
-
-        return "error";
+        return "library";
     }
 }
