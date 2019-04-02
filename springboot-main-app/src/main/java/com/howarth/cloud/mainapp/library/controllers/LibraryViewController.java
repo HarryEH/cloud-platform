@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/library")
 public class LibraryViewController {
 //    private String appMode;
 
@@ -25,8 +24,18 @@ public class LibraryViewController {
 //        appMode = environment.getProperty("app-mode");
     }
 
-    @GetMapping("/")
+    @GetMapping("/library")
     public String index(Model model){
+        model.addAttribute("diamond", diamondRepository.findTopByOrderByIdDesc().getNumberOfPeople());
+        model.addAttribute("ic", icRepository.findTopByOrderByIdDesc().getNumberOfPeople());
+        model.addAttribute("rhh", rhhRepository.findTopByOrderByIdDesc().getNumberOfPeople());
+        model.addAttribute("best", "Diamond");
+
+        return "library";
+    }
+
+    @GetMapping("/library/")
+    public String lib(Model model){
         model.addAttribute("diamond", diamondRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         model.addAttribute("ic", icRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         model.addAttribute("rhh", rhhRepository.findTopByOrderByIdDesc().getNumberOfPeople());
