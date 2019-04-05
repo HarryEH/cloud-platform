@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <name>GradeCalculator</name>
-    <description>Calculates the grades required to reach degree milestones based on current performance</description>
+    <description>Calculates the scores required to reach degree milestones based on current performance</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
