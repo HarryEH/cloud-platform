@@ -2,6 +2,7 @@ package com.howarth.cloud.mainapp.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+import static com.howarth.cloud.mainapp.security.SecurityConstants.ACCESS_TOKEN;
+import static com.howarth.cloud.mainapp.security.SecurityConstants.SESSION_STRING;
 
-    private final String ACCESS_TOKEN = "access_token=";
-    private final String SESSION_STRING = "; JSESSIONID";
+public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
@@ -76,18 +77,23 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 return null;
             }
 
-            String user = verifyToken(token, SecurityConstants.SECRET, "");
+            try {
+                String user = verifyToken(token, SecurityConstants.SECRET, "");
 
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                if (user != null) {
+                    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                }
+            } catch (JWTVerificationException exc) {
+                return null;
             }
+
             return null;
         } else {
             return null;
         }
     }
 
-    public static String verifyToken(final String token, final String secret, final String prefix) {
+    public static String verifyToken(final String token, final String secret, final String prefix) throws JWTVerificationException {
         return JWT.require(Algorithm.HMAC512(secret.getBytes()))
                 .build()
                 .verify(prefix.equals("") ? token : token.replace(prefix, ""))
