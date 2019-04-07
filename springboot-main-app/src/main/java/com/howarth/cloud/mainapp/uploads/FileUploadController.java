@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+
+import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyCookieAuth;
 
 @Controller
 public class FileUploadController {
@@ -37,7 +40,7 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("logo") MultipartFile logo,
+    public String handleFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file, @RequestParam("logo") MultipartFile logo,
                                    @RequestParam("description") String description, RedirectAttributes redirectAttributes) {
 
         if (logo == null || file == null || description == null) {
@@ -77,6 +80,7 @@ public class FileUploadController {
         ApplicationApp applicationApp = new ApplicationApp();
         applicationApp.setDescription(description);
         applicationApp.setName(filename);
+        applicationApp.setUsername(verifyCookieAuth(request));
         applicationApp.setLogo(logo.getOriginalFilename());
 
         applicationAppRepository.save(applicationApp);

@@ -40,13 +40,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         if (token != null) {
             return verifyBearerAuth(token);
         } else {
-            for (Cookie c : request.getCookies()) {
-                if (c.getName().equals(ACCESS_TOKEN)) {
-                    token = c.getValue();
-                }
+            String user = verifyCookieAuth(request);
+            if (user != null) {
+                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
-
-            return verifyCookieAuth(token);
+            return null;
         }
     }
 
@@ -60,7 +58,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         return null;
     }
 
-    private UsernamePasswordAuthenticationToken verifyCookieAuth(String token) {
+    public static String verifyCookieAuth(HttpServletRequest request) {
+        String token = null;
+
+        for (Cookie c : request.getCookies()) {
+            if (c.getName().equals(ACCESS_TOKEN)) {
+                token = c.getValue();
+            }
+        }
+
         if (token == null) {
             return null;
         }
@@ -68,14 +74,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         try {
             String user = verifyToken(token, SecurityConstants.SECRET, "");
 
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-            }
+            return user;
         } catch (JWTVerificationException exc) {
             return null;
         }
-
-        return null;
     }
 
     public static String verifyToken(final String token, final String secret, final String prefix) throws JWTVerificationException {
