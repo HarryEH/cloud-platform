@@ -15,20 +15,40 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableConfigurationProperties(StorageProperties.class)
 public class MainApp extends SpringBootServletInitializer  {
 
+	/**
+	 * Bean required for encrpyting passwords - this is used for our sign-up and login
+	 * @return a password encoder
+	 */
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+
+	/**
+	 * This is required for running the app locally.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(MainApp.class, args);
 	}
 
+
+	/**
+	 * This is required for when the app is hosted on a tomcat server.
+	 * @param builder
+	 * @return
+	 */
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(MainApp.class);
 	}
 
+	/**
+	 * This is used to create the directory that is used for uploading wars into.
+	 * @param storageService
+	 * @return
+	 */
 	@Bean
 	CommandLineRunner init(StorageService storageService) {
 		return (args) -> {

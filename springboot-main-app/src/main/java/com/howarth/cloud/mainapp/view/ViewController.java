@@ -16,13 +16,18 @@ public class ViewController {
     }
 
     /**
-     *
+     * The index page of the app - this provides a sign-up, a login, uploading apps and showing the apps we have available
      * @param model
      * @return
      */
     @GetMapping("/")
     public String index(Model model){
 
+        /**
+         * This hack is required because we are not uploading the apps as
+         * seperate spring applications - so add the embedded apps as if they
+         * were uploaded through the web form.
+         */
         if (applicationAppRepository.findByName("library") == null) {
             ApplicationApp library = new ApplicationApp();
             library.setName("library");

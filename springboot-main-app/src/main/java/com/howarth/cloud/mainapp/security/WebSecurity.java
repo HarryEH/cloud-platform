@@ -13,6 +13,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 
+import static com.howarth.cloud.mainapp.security.SecurityConstants.*;
+
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private UserDetailsServiceImpl userDetailsService;
@@ -26,9 +28,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/users/sign-in").permitAll()
-                .antMatchers(HttpMethod.GET, "/").permitAll()
-                .antMatchers(HttpMethod.GET, "/users/all").permitAll()
+                .antMatchers(HttpMethod.GET, SIGN_IN).permitAll()
+                .antMatchers(HttpMethod.GET, INDEX).permitAll()
+                .antMatchers(HttpMethod.GET, ALL_USERS).permitAll()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
                 .antMatchers(HttpMethod.GET, SecurityConstants.CHECK_USER_URL).permitAll()
                 .anyRequest().authenticated()

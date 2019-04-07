@@ -13,6 +13,11 @@ public class AppController {
         this.applicationAppRepository = applicationAppRepository;
     }
 
+    /**
+     * Mapping to display all of the uploads that are on the platform
+     * //FIXME: delete
+     * @return
+     */
     @GetMapping("/uploads")
     public List<ApplicationApp> listAllUploads(){
         return applicationAppRepository.findAll();

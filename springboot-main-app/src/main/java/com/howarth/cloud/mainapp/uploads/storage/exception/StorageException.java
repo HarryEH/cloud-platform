@@ -1,4 +1,4 @@
-package com.howarth.cloud.mainapp.uploads.storage;
+package com.howarth.cloud.mainapp.uploads.storage.exception;
 
 public class StorageException extends RuntimeException {
 

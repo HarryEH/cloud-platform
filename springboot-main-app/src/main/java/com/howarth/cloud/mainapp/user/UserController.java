@@ -1,15 +1,14 @@
 package com.howarth.cloud.mainapp.user;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.howarth.cloud.mainapp.security.SecurityConstants;
 import com.howarth.cloud.mainapp.security.VerifiedToken;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Null;
 import java.util.List;
+
+import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyToken;
 
 @RestController
 @RequestMapping("/users")
@@ -24,8 +23,12 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    //INFO: /login is automatically handled
 
+    /**
+     * Mapping for user sign up. This saves the ApplicationUser in the JPA repository
+     * @param user a user object with a username and password
+     * @return
+     */
     @PostMapping("/sign-up")
     public ApplicationUser signUp(@RequestBody ApplicationUser user) {
         if (applicationUserRepository.findByUsername(user.getUsername()) != null) {
@@ -37,6 +40,14 @@ public class UserController {
     }
 
 
+    /**
+     * This mapping is for verifying JWT access tokens. It uses the static
+     * function verifyToken found in the AuthorizationFilter.
+     *
+     * @param access_token
+     * @return VerifiedToken object, this will be JSON. It informs the caller
+     * if the token is valid and if it is it returns the username
+     */
     @GetMapping("/verify_token")
     public VerifiedToken verify(@Param("access_token") String access_token) {
 
@@ -48,16 +59,13 @@ public class UserController {
         } catch (NullPointerException ex) {
             return new VerifiedToken("-", false);
         }
-
     }
 
-    private String verifyToken(final String token, final String secret, final String prefix) {
-        return JWT.require(Algorithm.HMAC512(secret.getBytes()))
-                .build()
-                .verify(prefix.equals("") ? token : token.replace(prefix, ""))
-                .getSubject();
-    }
-
+    /**
+     * This returns a list of all the users of the site
+     * FIXME: remove this
+     * @return List of ApplicationUser that includes all the signed up users of the platform
+     */
     @GetMapping("/all")
     public List<ApplicationUser> all() {
         return applicationUserRepository.findAll();

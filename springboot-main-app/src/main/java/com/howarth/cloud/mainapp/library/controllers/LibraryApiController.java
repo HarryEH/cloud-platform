@@ -14,13 +14,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/library/api")
-public class ApiController {
+public class LibraryApiController {
 
   private DiamondRepository diamondRepository;
   private IcRepository icRepository;
   private RhhRepository rhhRepository;
 
-  public ApiController(DiamondRepository diamondRepository, IcRepository icRepository, RhhRepository rhhRepository) {
+  public LibraryApiController(DiamondRepository diamondRepository, IcRepository icRepository, RhhRepository rhhRepository) {
       this.diamondRepository = diamondRepository;
       this.icRepository = icRepository;
       this.rhhRepository = rhhRepository;

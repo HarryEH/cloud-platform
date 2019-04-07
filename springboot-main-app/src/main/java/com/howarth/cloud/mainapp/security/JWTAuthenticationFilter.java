@@ -2,8 +2,8 @@ package com.howarth.cloud.mainapp.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.howarth.cloud.mainapp.user.ApplicationUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.howarth.cloud.mainapp.user.ApplicationUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;

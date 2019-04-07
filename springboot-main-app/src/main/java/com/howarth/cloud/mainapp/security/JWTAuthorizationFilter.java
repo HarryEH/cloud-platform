@@ -87,7 +87,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         }
     }
 
-    private String verifyToken(final String token, final String secret, final String prefix) {
+    public static String verifyToken(final String token, final String secret, final String prefix) {
         return JWT.require(Algorithm.HMAC512(secret.getBytes()))
                 .build()
                 .verify(prefix.equals("") ? token : token.replace(prefix, ""))
