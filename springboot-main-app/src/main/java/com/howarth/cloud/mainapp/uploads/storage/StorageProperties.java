@@ -8,7 +8,9 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
-    private String location = "/var/lib/tomcat8/webapps/ROOT/upload-dir/";
+//    private String location = "/var/lib/tomcat8/webapps/ROOT/upload-dir/";
+    private String location = "upload-dir/";
+
 
     public String getLocation() {
         return location;
