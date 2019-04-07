@@ -10,13 +10,13 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.howarth.cloud.mainapp.security.SecurityConstants.ACCESS_TOKEN;
-import static com.howarth.cloud.mainapp.security.SecurityConstants.SESSION_STRING;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -40,7 +40,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         if (token != null) {
             return verifyBearerAuth(token);
         } else {
-            return verifyCookieAuth(request.getHeader(SecurityConstants.COOKIE));
+            for (Cookie c : request.getCookies()) {
+                if (c.getName().equals(ACCESS_TOKEN)) {
+                    token = c.getValue();
+                }
+            }
+
+            return verifyCookieAuth(token);
         }
     }
 
@@ -54,43 +60,22 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         return null;
     }
 
-    private UsernamePasswordAuthenticationToken verifyCookieAuth(String token){
+    private UsernamePasswordAuthenticationToken verifyCookieAuth(String token) {
         if (token == null) {
             return null;
         }
 
-        if (token.contains(ACCESS_TOKEN)) {
-            String cookie[] = token.split(ACCESS_TOKEN);
+        try {
+            String user = verifyToken(token, SecurityConstants.SECRET, "");
 
-            if ( cookie.length == 2 ) {
-                if (cookie[1].contains(SESSION_STRING)) {
-                    String qqq[] = cookie[1].split(SESSION_STRING);
-                    if (qqq.length == 2) {
-                        token = qqq[0];
-                    } else {
-                        return null;
-                    }
-                } else {
-                    token = cookie[1];
-                }
-            } else {
-                return null;
+            if (user != null) {
+                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
-
-            try {
-                String user = verifyToken(token, SecurityConstants.SECRET, "");
-
-                if (user != null) {
-                    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-                }
-            } catch (JWTVerificationException exc) {
-                return null;
-            }
-
-            return null;
-        } else {
+        } catch (JWTVerificationException exc) {
             return null;
         }
+
+        return null;
     }
 
     public static String verifyToken(final String token, final String secret, final String prefix) throws JWTVerificationException {
