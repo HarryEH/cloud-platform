@@ -31,6 +31,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, INDEX).permitAll()
                 .antMatchers(HttpMethod.GET, ALL_USERS).permitAll()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.GET, SecurityConstants.SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.GET, SecurityConstants.SIGN_IN_URL).permitAll()
                 .antMatchers(HttpMethod.GET, SecurityConstants.CHECK_USER_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()

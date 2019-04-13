@@ -46,4 +46,26 @@ public class ViewController {
         return "index";
     }
 
+    /**
+     * This is the mapping for the view that controls signing in. Which is handled by
+     * a post method that doesn't actually need to be in the UserController
+     * @param model
+     * @return
+     */
+    @GetMapping("/users/sign-in")
+    public String signIn(Model model){
+        return "signin";
+    }
+
+    /**
+     * This is the mapping for the view that controls signing in. Which is handled by
+     * a post method that doesn't actually need to be in the UserController
+     * @param model
+     * @return
+     */
+    @GetMapping("/users/sign-up")
+    public String signUp(Model model){
+        return "signup";
+    }
+
 }
