@@ -2,9 +2,7 @@ package com.stevenson.grades.database.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class ModuleGrades {
@@ -18,27 +16,22 @@ public class ModuleGrades {
     @Column
     private double average;
     @ElementCollection
-    private Map<String, Double> grades = new HashMap<String, Double>();
+    @OneToMany(cascade = {CascadeType.MERGE})
+    private List<Grade> grades = new ArrayList<>();
 
     protected ModuleGrades(){}
 
     public ModuleGrades(String moduleName, double credits){
         this.moduleName = moduleName;
         this.credits = credits;
+        this.average = 0;
     }
 
-    public ModuleGrades(String moduleName, double credits, List<String> names, List<Double> scores){
-        this.moduleName = moduleName;
-        this.credits = credits;
-        this.grades = zipGrades(names, scores);
-
-        updateAverage();
-    }
-
-    public ModuleGrades(String moduleName, double credits, Map<String, Double> grades){
+    public ModuleGrades(String moduleName, double credits, List<Grade> grades){
         this.moduleName = moduleName;
         this.credits = credits;
         this.grades = grades;
+
         updateAverage();
     }
 
@@ -58,16 +51,26 @@ public class ModuleGrades {
         return average;
     }
 
-    public Map<String, Double> getGrades() {
+    public List<Grade> getGrades() {
         return grades;
     }
 
-    public List<String> getNames(){
-        return new ArrayList<>(grades.keySet());
+    public double getRemaining(){
+        double remaining = 100;
+        for(Grade g : grades){
+            remaining -= g.getWeight();
+        }
+
+        if(remaining < 0) remaining = 0;
+        return remaining;
     }
 
-    public List<Double> getScores() {
-        return new ArrayList<>(grades.values());
+    public double getContributed(){
+        double contribution = 0;
+        for(Grade g : grades){
+            contribution += g.getContribution();
+        }
+        return contribution;
     }
 
     public void setModuleName(String moduleName) {
@@ -78,42 +81,28 @@ public class ModuleGrades {
         this.credits = credits;
     }
 
-    public void setGrades(List<String> names, List<Double> scores){
-        this.grades = zipGrades(names, scores);
-        updateAverage();
-    }
-
-    public void setGrades(Map<String, Double> grades) {
+    public void setGrades(List<Grade> grades) {
         this.grades = grades;
         updateAverage();
     }
 
-    public void addGrades(List<String> names, List<Double> scores){
-        this.grades.putAll(zipGrades(names, scores));
+    public void addGrade(Grade grade){
+        this.grades.add(grade);
         updateAverage();
     }
 
-    public void addGrade(String name, Double score){
-        this.grades.put(name, score);
+    public void addGrades(List<Grade> grades){
+        this.grades.addAll(grades);
         updateAverage();
-    }
-
-    private Map<String, Double> zipGrades(List<String> l1, List<Double> l2){
-        Map<String, Double> m1 = new HashMap<>();
-
-        int len = l1.size() > l2.size() ? l2.size() : l1.size();
-        for(int i = 0; i < len; i++){
-            m1.put(l1.get(i), l2.get(i));
-        }
-
-        return m1;
     }
 
     private void updateAverage(){
         average = 0;
-        for(Double d : grades.values()){
-            average += d;
+        double weighting = 0;
+        for(Grade g : grades){
+            average += (g.getPercentage() * g.getWeight());
+            weighting += g.getWeight();
         }
-        average = average / grades.size();
+        average = average / weighting;
     }
 }

@@ -40,18 +40,26 @@
                 <h2>
                     Hello, world!
                 </h2>
-                <p>
-                    Some Text
+                <p th:text="${'Credits: '+user.getCredits()+'/'+user.getTotalCredits()}"></p>
+                <p th:with="targets=${user.getTargets()}">
+                    <span th:text="${'Current Average: '+user.getAverage()+' | To Pass: '+targets[0]+' | To 2:2: '+targets[1]+' | To 2:1: '+targets[2]+' | To 1st: '+targets[3]}"></span>
                 </p>
 
                 <div id="modules-card">
-                    <div class="card" th:each="moduleGrade, ind : ${moduleGrades}">
+                    <div class="card" th:each="mg, ind : ${moduleGrades}">
                         <div class="card-header">
                             <a class="card-link collapsed" data-toggle="collapse" data-parent="#modules-card"
-                               th:href="${'#card-element-' + ind.count}" th:text="${moduleGrade.getModuleName() + ' (' + moduleGrade.getCredits() + ' Credits)'}"></a>
+                               th:href="${'#card-element-' + ind.count}" th:text="${mg.getModuleName() + ' (' + mg.getCredits() + ' Credits)'}"></a>
                         </div>
-                        <div th:id="${'card-element-' + ind.count}" class="collapse" th:each="grade : ${moduleGrade.getGrades()}">
-                            <div class="card-body" th:text="${grade.getKey() + ': ' + grade.getValue()}"></div>
+                        <div th:id="${'card-element-' + ind.count}" class="collapse pl-4">
+                            <div class="card" th:each="g : ${mg.getGrades()}">
+                                <p class="card-header"
+                                   th:text="${g.getName()+' ('+g.getWeight()+'%) - '+g.getGrade()+'/'+g.getMaxGrade()+' ('+g.getPercentage()+'%)'}"></p>
+                            </div>
+                            <div class="card">
+                                <p class="card-header"
+                                   th:text="${'Current grade: '+mg.getContributed()+', weighted average: '+mg.getAverage()+'%'+' with '+mg.getRemaining()+'% remaining'}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
