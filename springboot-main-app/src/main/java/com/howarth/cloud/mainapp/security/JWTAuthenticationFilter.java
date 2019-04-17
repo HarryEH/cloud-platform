@@ -34,6 +34,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             ApplicationUser creds = new ObjectMapper()
                     .readValue(req.getInputStream(), ApplicationUser.class);
 
+            //TODO check the username here
+
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             creds.getUsername(),
@@ -62,5 +64,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         res.getWriter().write(resp);
         res.getWriter().flush();
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        super.unsuccessfulAuthentication(request, response, failed);
     }
 }
