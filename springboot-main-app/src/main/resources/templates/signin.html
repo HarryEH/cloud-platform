@@ -69,7 +69,11 @@
                 $('#password').val("");
                 $('#username').val("");
                 alert("Success! Logged in.");
-                document.location.replace("/");
+                if (document.referrer.includes("users/sign-up")) {
+                    document.location.replace("/");
+                } else {
+                    document.location.replace(document.referrer);
+                }
             },
             error: function (request, textStatus, errorThrown) {
                 $('#password').val("");

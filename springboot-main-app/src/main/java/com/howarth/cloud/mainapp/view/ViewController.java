@@ -6,6 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
+import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyCookieAuth;
+
 @Controller
 public class ViewController {
 
@@ -21,7 +25,7 @@ public class ViewController {
      * @return
      */
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, HttpServletRequest request){
 
         /**
          * This hack is required because we are not uploading the apps as
@@ -39,6 +43,25 @@ public class ViewController {
         if (applicationAppRepository.findByName("other") == null) {
             //todo fill this in  later
         }
+
+        String message = verifyCookieAuth(request);
+
+        final String NOT_LOGGED_IN = "You are not logged in!";
+
+        if (message != null) {
+            if (message.equals("-")) {
+                message = NOT_LOGGED_IN;
+            } else {
+                message = "You are logged in as " + message + "!";
+            }
+
+
+        } else {
+            message = NOT_LOGGED_IN;
+        }
+
+
+        model.addAttribute("message", message );
 
 
         model.addAttribute("apps", applicationAppRepository.findAll());
