@@ -3,6 +3,7 @@ package com.howarth.cloud.mainapp.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -73,17 +74,20 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         try {
             String user = verifyToken(token, SecurityConstants.SECRET, "");
-
             return user;
-        } catch (JWTVerificationException exc) {
+        }  catch (JWTVerificationException exc) {
             return null;
         }
     }
 
-    public static String verifyToken(final String token, final String secret, final String prefix) throws JWTVerificationException {
-        return JWT.require(Algorithm.HMAC512(secret.getBytes()))
-                .build()
-                .verify(prefix.equals("") ? token : token.replace(prefix, ""))
-                .getSubject();
+    public static String verifyToken(final String token, final String secret, final String prefix) {
+        try {
+            return JWT.require(Algorithm.HMAC512(secret.getBytes()))
+                    .build()
+                    .verify(prefix.equals("") ? token : token.replace(prefix, ""))
+                    .getSubject();
+        } catch (JWTVerificationException e) {
+            return null;
+        }
     }
 }
