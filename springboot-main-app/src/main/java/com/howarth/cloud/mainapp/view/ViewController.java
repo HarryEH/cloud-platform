@@ -1,7 +1,7 @@
 package com.howarth.cloud.mainapp.view;
 
-import com.howarth.cloud.mainapp.uploads.storage.ApplicationApp;
-import com.howarth.cloud.mainapp.uploads.storage.ApplicationAppRepository;
+import com.howarth.cloud.mainapp.uploads.storage.database.ApplicationApp;
+import com.howarth.cloud.mainapp.uploads.storage.database.ApplicationAppRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

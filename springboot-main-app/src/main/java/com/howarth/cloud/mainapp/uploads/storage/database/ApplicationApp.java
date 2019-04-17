@@ -1,4 +1,4 @@
-package com.howarth.cloud.mainapp.uploads.storage;
+package com.howarth.cloud.mainapp.uploads.storage.database;
 
 import javax.persistence.*;
 
