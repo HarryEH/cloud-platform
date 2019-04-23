@@ -2,7 +2,6 @@ package com.howarth.cloud.mainapp.user;
 
 import com.howarth.cloud.mainapp.security.SecurityConstants;
 import com.howarth.cloud.mainapp.security.VerifiedToken;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -12,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyToken;
@@ -44,30 +42,38 @@ public class UserController {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         applicationUserRepository.save(user);
 
-        JSONObject json = new JSONObject();
-        json.put("username", user.getUsername());
-        json.put("balance", 0);
+        createBankAccount(user.getUsername(), 0);
+
+        return user;
+    }
+
+
+    private void createBankAccount(String username, int balance){
+        JSONObject bankAccount = createJsonBankAccount(username, balance);
 
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
         try {
             HttpPost request = new HttpPost("http://localhost:8080" + SecurityConstants.CREATE_ACCOUNT);
-            StringEntity params = new StringEntity(json.toString());
+            StringEntity params = new StringEntity(bankAccount.toString());
+
             request.addHeader("content-type", "application/json");
+
             request.setEntity(params);
-            CloseableHttpResponse response = httpClient.execute(request);
-            // handle response here...
+
+            httpClient.execute(request);
+
+            httpClient.close();
         } catch (Exception ex) {
             // handle exception here
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
+    }
 
-        return user;
+    private JSONObject createJsonBankAccount(String username, int balance) {
+        JSONObject json = new JSONObject();
+        json.put("username", username);
+        json.put("balance", balance);
+        return json;
     }
 
 
