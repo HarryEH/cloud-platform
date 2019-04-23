@@ -39,12 +39,8 @@ public class PeanutBankController {
   });
   */
 
-
   @PostMapping("/new_account")
   public ValidUseToken newAccount(@RequestBody BankAccount account) {
-    //TODO create an account if one already doesn't exist
-    //TODO give the account a certain amount of credit...
-
     if (bankAccountRepository.findByUsername(account.getUsername()) != null) {
       return new ValidUseToken("-", false);
     }
