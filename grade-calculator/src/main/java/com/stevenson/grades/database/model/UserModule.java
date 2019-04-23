@@ -5,29 +5,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class UserModules {
+public class UserModule {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     @Column(nullable = false)
     private long userID;
     @ElementCollection
-    private List<ModuleGrades> modules;
+    private List<Module> modules = new ArrayList<>();
     @Column(nullable = false)
     private double totalCredits;
     @Column
     private double average;
 
-    protected UserModules(){}
+    protected UserModule(){}
 
-    public UserModules(long userID, double totalCredits){
+    public UserModule(long userID, double totalCredits){
         this.userID = userID;
         this.modules = new ArrayList<>();
         this.totalCredits = totalCredits;
         this.average = 0;
     }
 
-    public UserModules(long userID, List<ModuleGrades> modules, double totalCredits){
+    public UserModule(long userID, List<Module> modules, double totalCredits){
         this.userID = userID;
         this.modules = modules;
         this.totalCredits = totalCredits;
@@ -38,11 +38,11 @@ public class UserModules {
         return userID;
     }
 
-    public List<ModuleGrades> getModules() {
+    public List<Module> getModules() {
         return modules;
     }
 
-    public void setModules(List<ModuleGrades> modules) {
+    public void setModules(List<Module> modules) {
         this.modules = modules;
         updateAverage();
     }
@@ -61,7 +61,7 @@ public class UserModules {
 
     public double getCredits(){
         double credits = 0;
-        for(ModuleGrades m : modules){
+        for(Module m : modules){
             //only count credits from fully completed modules
             double moduleCompleted = 0;
             for(Grade g : m.getGrades()){
@@ -76,6 +76,16 @@ public class UserModules {
         double remaining = totalCredits - getCredits();
         if(remaining < 0) remaining = 0;
         return remaining;
+    }
+
+    public double getSpareCredits(){
+        double spare = totalCredits;
+        for(Module m : modules){
+            spare -= m.getCredits();
+        }
+        if(spare < 0) spare = 0;
+
+        return spare;
     }
 
     public double[] getTargets(){
@@ -94,21 +104,26 @@ public class UserModules {
         return targets;
     }
 
-    public void addModule(ModuleGrades module){
+    public void addModule(Module module){
         this.modules.add(module);
         updateAverage();
     }
 
-    public void addModules(List<ModuleGrades> modules){
+    public void addModules(List<Module> modules){
         this.modules.addAll(modules);
         updateAverage();
     }
 
     public void updateAverage(){
         average = 0;
-        for(ModuleGrades m : modules){
-            average += m.getAverage();
+        int numModules = 0;
+        for(Module m : modules){
+            //if progress has actually been made on module (i.e. not 0 because just started)
+            if(m.getRemaining() < 100.0){
+                average += m.getAverage();
+                numModules ++;
+            }
         }
-        average = average / modules.size();
+        average = average / numModules;
     }
 }

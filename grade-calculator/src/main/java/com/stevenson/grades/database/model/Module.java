@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class ModuleGrades {
+public class Module {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
@@ -19,15 +19,15 @@ public class ModuleGrades {
     @OneToMany(cascade = {CascadeType.MERGE})
     private List<Grade> grades = new ArrayList<>();
 
-    protected ModuleGrades(){}
+    protected Module(){}
 
-    public ModuleGrades(String moduleName, double credits){
+    public Module(String moduleName, double credits){
         this.moduleName = moduleName;
         this.credits = credits;
         this.average = 0;
     }
 
-    public ModuleGrades(String moduleName, double credits, List<Grade> grades){
+    public Module(String moduleName, double credits, List<Grade> grades){
         this.moduleName = moduleName;
         this.credits = credits;
         this.grades = grades;
@@ -71,6 +71,10 @@ public class ModuleGrades {
             contribution += g.getContribution();
         }
         return contribution;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setModuleName(String moduleName) {

@@ -14,66 +14,164 @@
 
 <body>
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Cloud</a>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">Cloud</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+            <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="jumbotron">
-                <h2>
-                    Hello, world!
-                </h2>
-                <p th:text="${'Credits: '+user.getCredits()+'/'+user.getTotalCredits()}"></p>
-                <p th:with="targets=${user.getTargets()}">
-                    <span th:text="${'Current Average: '+user.getAverage()+' | To Pass: '+targets[0]+' | To 2:2: '+targets[1]+' | To 2:1: '+targets[2]+' | To 1st: '+targets[3]}"></span>
-                </p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <h2>
+                        Hello, world!
+                    </h2>
+                    <p th:text="${'Credits: '+user.getCredits()+'/'+user.getTotalCredits()}"></p>
+                    <p th:with="targets=${user.getTargets()}">
+                        <span th:text="${'Current Average: '+user.getAverage()+' | To Pass: '+targets[0]+' | To 2:2: '+targets[1]+' | To 2:1: '+targets[2]+' | To 1st: '+targets[3]}"></span>
+                    </p>
 
-                <div id="modules-card">
-                    <div class="card" th:each="mg, ind : ${moduleGrades}">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" data-parent="#modules-card"
-                               th:href="${'#card-element-' + ind.count}" th:text="${mg.getModuleName() + ' (' + mg.getCredits() + ' Credits)'}"></a>
-                        </div>
-                        <div th:id="${'card-element-' + ind.count}" class="collapse pl-4">
-                            <div class="card" th:each="g : ${mg.getGrades()}">
-                                <p class="card-header"
-                                   th:text="${g.getName()+' ('+g.getWeight()+'%) - '+g.getGrade()+'/'+g.getMaxGrade()+' ('+g.getPercentage()+'%)'}"></p>
+                    <div id="modules-card">
+                        <div class="card" th:each="m, ind : ${modules}">
+                            <div class="card-header row" th:object="${m}">
+                                <a class="card-link collapsed col-md-10" data-toggle="collapse" data-parent="#modules-card"
+                                   th:href="${'#card-element-' + ind.count}" th:text="*{getModuleName()+' ('+getCredits()+' Credits)'}"></a>
+
+                                <button type="button" class="btn btn-primary col-md-2 float-right" data-toggle="modal" data-target="#editM"
+                                        th:attr="data-module_id=*{getId()}, data-module_name=*{getModuleName()},
+                                        data-module_credits=*{getCredits()}, data-spare_creds=${user.getSpareCredits()}">
+                                    Edit Module</button>
                             </div>
-                            <div class="card">
-                                <p class="card-header"
-                                   th:text="${'Current grade: '+mg.getContributed()+', weighted average: '+mg.getAverage()+'%'+' with '+mg.getRemaining()+'% remaining'}"></p>
+                            <div th:id="${'card-element-' + ind.count}" class="collapse pl-4">
+                                <div class="card" th:each="g : ${m.getGrades()}">
+                                    <span class="card-header row" th:object="${g}">
+                                        <p class="col-md-11" th:text="*{getName()+' ('+getWeight()+'%) - '+getGrade()+'/'+getMaxGrade()+' ('+getPercentage()+'%)'}"></p>
+
+                                        <button type="button" class="btn btn-primary col-md-1" data-toggle="modal" data-target="#editG"
+                                                th:attr="data-grade_id=*{getId()}, data-parent_id=${m.getId()},
+                                                data-ass_name=*{getName()}, data-ass_grade=*{getGrade()}, data-ass_max=*{getMaxGrade()},
+                                                data-ass_weight=*{getWeight()}, data-remaining=${m.getRemaining()}">
+                                            Edit</button>
+                                    </span>
+                                </div>
+                                <div class="card" th:object="${m}">
+                                    <p class="card-header"
+                                       th:text="*{'Current grade: '+getContributed()+', weighted average: '+getAverage()+'%'+' with '+getRemaining()+'% remaining'}"></p>
+                                    <!--TODO: Disable this button if remaining is 0-->
+                                    <button id="addGradeBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editG"
+                                            th:attr="data-parent_id=*{getId()}, data-remaining=*{getRemaining()}">Add Grade</button>
+                                </div>
                             </div>
                         </div>
+                        <!--TODO: Disable this button if no credits left-->
+                        <button id="addModuleBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editM"
+                                th:attr="data-spare_creds=${user.getSpareCredits()}">Add New Module</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <div class="modal fade" id="editM" tabindex="-1" role="dialog" aria-labelledby="editMLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="moduleLabel">Edit MODULE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editModule" action="#" th:action="@{/updm}" th:object="${newm}" method="post">
+                        <input type="hidden" id="module-id" th:field="*{id}"></input>
+                        <div class="form-group">
+                            <label for="module-name" class="col-form-label">Module Name:</label>
+                            <input type="text" class="form-control" id="module-name" th:field="*{moduleName}" required="required"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="module-credits" class="col-form-label">Credits:</label>
+                            <input type="number" class="form-control" id="module-credits" th:field="*{credits}" required="required"
+                            min="0" th:max="${user.getTotalCredits()}"></input>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Submit"/>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editG" tabindex="-1" role="dialog" aria-labelledby="editGLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gradeLabel">Edit GRADE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editGrade" action="#" th:action="@{/updg}" th:object="${newg}" method="post" data-rem_weight="100">
+                        <input type="hidden" id="grade-id" th:field="*{id}"></input>
+                        <input type="hidden" id="grade-parent-id" th:field="*{parentId}"></input>
+                        <div class="form-group">
+                            <label for="ass-name" class="col-form-label">Assignment name:</label>
+                            <input type="text" class="form-control" id="ass-name" th:field="*{name}" required="required"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="ass-max" class="col-form-label">Max Grade:</label>
+                            <input type="number" class="form-control" id="ass-max" th:field="*{maxGrade}" required="required"
+                                   min="0"></input>
+
+                            <!--TODO: Set max here based on max grade field-->
+                            <label for="ass-grade" class="col-form-label">Grade:</label>
+                            <input type="number" class="form-control" id="ass-grade" th:field="*{grade}" required="required"
+                                   min="0"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="ass-weight" class="col-form-label">Weight:</label>
+                            <input type="number" class="form-control" id="ass-weight" th:field="*{weight}" required="required"
+                                   min="0" max="100"></input>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Submit"/>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>-->
+    <!--<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>-->
+    <!--<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/js/populateForms.js}"></script>
 </body>
 </html>
