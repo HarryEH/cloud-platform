@@ -17,4 +17,5 @@ public class SecurityConstants {
     public static final String INDEX = "/";
     public static final String ALL_USERS = "/users/all";
 
+    public static final String CREATE_ACCOUNT = "/peanut_bank/new_account";
 }

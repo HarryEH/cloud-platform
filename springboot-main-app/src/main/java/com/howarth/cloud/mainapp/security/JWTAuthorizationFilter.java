@@ -62,6 +62,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     public static String verifyCookieAuth(HttpServletRequest request) {
         String token = null;
 
+        if (request.getCookies() == null ) {
+            return null;
+        }
+
         for (Cookie c : request.getCookies()) {
             if (c.getName().equals(ACCESS_TOKEN)) {
                 token = c.getValue();
@@ -78,6 +82,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         }  catch (JWTVerificationException exc) {
             return null;
         }
+
+
     }
 
     public static String verifyToken(final String token, final String secret, final String prefix) {
