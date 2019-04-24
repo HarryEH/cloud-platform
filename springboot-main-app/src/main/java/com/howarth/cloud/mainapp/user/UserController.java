@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyToken;
@@ -35,33 +36,46 @@ public class UserController {
      * @return
      */
     @PostMapping("/sign-up")
-    public ApplicationUser signUp(@RequestBody ApplicationUser user) {
+    public ApplicationUser signUp(@RequestBody ApplicationUser user, HttpServletRequest request) {
         if (applicationUserRepository.findByUsername(user.getUsername()) != null) {
             return null;
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         applicationUserRepository.save(user);
 
-        createBankAccount(user.getUsername(), 0);
+        createBankAccount(user.getUsername(), 0, request);
 
         return user;
     }
 
 
-    private void createBankAccount(String username, int balance){
+    private void createBankAccount(String username, int balance, HttpServletRequest request){
         JSONObject bankAccount = createJsonBankAccount(username, balance);
 
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
         try {
-            HttpPost request = new HttpPost("http://localhost:8080" + SecurityConstants.CREATE_ACCOUNT);
+//            String URL = request.getScheme() + "://" +
+//                    request.getServerName() +
+//                    ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +
+//                    request.getRequestURI() +
+//                    (request.getQueryString() != null ? "?" + request.getQueryString() : "");
+
+            // This automatically gets the correct URL to sent the request to.
+            final String URL = request.getScheme() + "://" + request.getServerName() +
+                        ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +
+                        SecurityConstants.CREATE_ACCOUNT;
+
+
+            HttpPost req = new HttpPost(URL);
+
             StringEntity params = new StringEntity(bankAccount.toString());
 
-            request.addHeader("content-type", "application/json");
+            req.addHeader("content-type", "application/json");
 
-            request.setEntity(params);
+            req.setEntity(params);
 
-            httpClient.execute(request);
+            httpClient.execute(req);
 
             httpClient.close();
         } catch (Exception ex) {
