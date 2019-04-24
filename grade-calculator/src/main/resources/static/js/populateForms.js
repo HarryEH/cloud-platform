@@ -32,8 +32,8 @@ $('#editG').on('show.bs.modal', function (event) {
         grade = button.data('ass_grade');
         maxGrade = button.data('ass_max');
         weight = button.data('ass_weight');
-        remaining -= weight;
-        if(remaining < 0) remaining = 0;
+        remaining += weight;
+        if(remaining > 100) remaining = 100;
         $(this).find('.modal-title').text('Editing Assignment: ' + assName);
     }
 
@@ -45,4 +45,10 @@ $('#editG').on('show.bs.modal', function (event) {
     var assWeight = $('#ass-weight');
     assWeight.val(weight);
     assWeight.prop('max', remaining);
+});
+
+//limit grade to less than maximum for that assignment
+$('#ass-max').on('change', function(){
+    var newMax = $('#ass-max').val();
+    $('#ass-grade').prop('max', newMax);
 });

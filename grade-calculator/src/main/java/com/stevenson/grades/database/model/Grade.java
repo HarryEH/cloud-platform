@@ -79,4 +79,9 @@ public class Grade {
     public double getContribution() {
         return contribution;
     }
+
+    public boolean equals(Object obj){
+        if(obj.getClass() != Grade.class) return false;
+        return (this.getId() == ((Grade)obj).getId());
+    }
 }

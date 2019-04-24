@@ -48,38 +48,41 @@
                     <div id="modules-card">
                         <div class="card" th:each="m, ind : ${modules}">
                             <div class="card-header row" th:object="${m}">
-                                <a class="card-link collapsed col-md-10" data-toggle="collapse" data-parent="#modules-card"
+                                <a class="card-link collapsed col-md-8" data-toggle="collapse" data-parent="#modules-card"
                                    th:href="${'#card-element-' + ind.count}" th:text="*{getModuleName()+' ('+getCredits()+' Credits)'}"></a>
 
                                 <button type="button" class="btn btn-primary col-md-2 float-right" data-toggle="modal" data-target="#editM"
                                         th:attr="data-module_id=*{getId()}, data-module_name=*{getModuleName()},
                                         data-module_credits=*{getCredits()}, data-spare_creds=${user.getSpareCredits()}">
                                     Edit Module</button>
+                                <a th:href="@{/delete_module(moduleId=*{getId()}, userId=${user.getId()})}" class="btn btn-danger col-md-2">Delete</a>
                             </div>
                             <div th:id="${'card-element-' + ind.count}" class="collapse pl-4">
                                 <div class="card" th:each="g : ${m.getGrades()}">
                                     <span class="card-header row" th:object="${g}">
-                                        <p class="col-md-11" th:text="*{getName()+' ('+getWeight()+'%) - '+getGrade()+'/'+getMaxGrade()+' ('+getPercentage()+'%)'}"></p>
+                                        <p class="col-md-10" th:text="*{getName()+' ('+getWeight()+'%) - '+getGrade()+'/'+getMaxGrade()+' ('+getPercentage()+'%)'}"></p>
 
                                         <button type="button" class="btn btn-primary col-md-1" data-toggle="modal" data-target="#editG"
                                                 th:attr="data-grade_id=*{getId()}, data-parent_id=${m.getId()},
                                                 data-ass_name=*{getName()}, data-ass_grade=*{getGrade()}, data-ass_max=*{getMaxGrade()},
                                                 data-ass_weight=*{getWeight()}, data-remaining=${m.getRemaining()}">
                                             Edit</button>
+
+                                        <a th:href="@{/delete_grade(gradeId=*{getId()}, moduleId=${m.getId()})}" class="btn btn-danger col-md-1">Delete</a>
                                     </span>
                                 </div>
                                 <div class="card" th:object="${m}">
                                     <p class="card-header"
                                        th:text="*{'Current grade: '+getContributed()+', weighted average: '+getAverage()+'%'+' with '+getRemaining()+'% remaining'}"></p>
-                                    <!--TODO: Disable this button if remaining is 0-->
                                     <button id="addGradeBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editG"
-                                            th:attr="data-parent_id=*{getId()}, data-remaining=*{getRemaining()}">Add Grade</button>
+                                            th:attr="data-parent_id=*{getId()}, data-remaining=*{getRemaining()}"
+                                            th:disabled="*{getRemaining() > 0 ? false : true}">Add Grade</button>
                                 </div>
                             </div>
                         </div>
-                        <!--TODO: Disable this button if no credits left-->
-                        <button id="addModuleBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editM"
-                                th:attr="data-spare_creds=${user.getSpareCredits()}">Add New Module</button>
+                        <button id="addModuleBtn" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editM"
+                                th:attr="data-spare_creds=${user.getSpareCredits()}"
+                                th:disabled="${user.getSpareCredits() > 0 ? false : true}">Add New Module</button>
                     </div>
                 </div>
             </div>
@@ -139,10 +142,9 @@
                             <input type="number" class="form-control" id="ass-max" th:field="*{maxGrade}" required="required"
                                    min="0"></input>
 
-                            <!--TODO: Set max here based on max grade field-->
                             <label for="ass-grade" class="col-form-label">Grade:</label>
                             <input type="number" class="form-control" id="ass-grade" th:field="*{grade}" required="required"
-                                   min="0"></input>
+                                   min="0" max="1000"></input>
                         </div>
                         <div class="form-group">
                             <label for="ass-weight" class="col-form-label">Weight:</label>

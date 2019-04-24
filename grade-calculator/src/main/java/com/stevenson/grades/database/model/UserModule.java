@@ -34,6 +34,10 @@ public class UserModule {
         updateAverage();
     }
 
+    public long getId(){
+        return id;
+    }
+
     public long getUserID() {
         return userID;
     }
@@ -114,7 +118,7 @@ public class UserModule {
         updateAverage();
     }
 
-    public void updateAverage(){
+    private void updateAverage(){
         average = 0;
         int numModules = 0;
         for(Module m : modules){
@@ -124,6 +128,12 @@ public class UserModule {
                 numModules ++;
             }
         }
+        if(numModules == 0) numModules = 1;
         average = average / numModules;
+    }
+
+    public void delModule(Module module){
+        modules.remove(module);
+        updateAverage();
     }
 }

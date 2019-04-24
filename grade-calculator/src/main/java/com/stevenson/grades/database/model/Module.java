@@ -107,6 +107,17 @@ public class Module {
             average += (g.getPercentage() * g.getWeight());
             weighting += g.getWeight();
         }
+        if(weighting == 0) weighting = 1;
         average = average / weighting;
+    }
+
+    public void delGrade(Grade grade){
+        grades.remove(grade);
+        updateAverage();
+    }
+
+    public boolean equals(Object obj){
+        if(obj.getClass() != Module.class) return false;
+        return (this.getId() == ((Module)obj).getId());
     }
 }

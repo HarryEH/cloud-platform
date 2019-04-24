@@ -8,9 +8,7 @@ import com.stevenson.grades.database.model.Module;
 import com.stevenson.grades.database.model.UserModule;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +24,10 @@ public class ViewController {
         this.umr = umr;
         this.mr = mr;
         this.gr = gr;
+
+        //TODO: Handle new user setup
+        //TODO: Find actual current user
+
         umr.deleteAll();
         mr.deleteAll();
         gr.deleteAll();
@@ -61,6 +63,7 @@ public class ViewController {
         model.addAttribute("newm", new Module(null,0));
         model.addAttribute("newg", new GradeHandler());
 
+
         return "index";
     }
 
@@ -77,7 +80,7 @@ public class ViewController {
             //in case constructor ever changes to include extra code
             Module newM = new Module(m.getModuleName(), m.getCredits());
             mr.save(newM);
-            UserModule curUser = umr.findOne(user);
+            UserModule curUser = umr.findDistinctByUserID(user);
             curUser.addModule(newM);
             umr.save(curUser);
         }
@@ -108,7 +111,32 @@ public class ViewController {
         return "redirect:/";
     }
 
-    //TODO: Add delete option
-    //TODO: Handle new user setup
-    //TODO: Find actual current user
+    @GetMapping("/delete_grade")
+    public String deleteGrade(@RequestParam(name="gradeId")long gId, @RequestParam(name="moduleId")long mId){
+        Grade delG = gr.findOne(gId);
+        Module parM = mr.findOne(mId);
+
+        parM.delGrade(delG);
+        mr.save(parM);
+        gr.delete(gId);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/delete_module")
+    public String deleteModule(@RequestParam(name="moduleId")long mId, @RequestParam(name="userId")long uId){
+        Module delM = mr.findOne(mId);
+        UserModule user = umr.findOne(uId);
+        List<Grade> grades = delM.getGrades();
+
+        user.delModule(delM);
+        umr.save(user);
+        delM.setGrades(new ArrayList<>());
+        for(Grade g : grades){
+            gr.delete(g.getId());
+        }
+        mr.delete(mId);
+
+        return "redirect:/";
+    }
 }
