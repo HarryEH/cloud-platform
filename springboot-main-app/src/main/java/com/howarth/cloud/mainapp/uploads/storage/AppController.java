@@ -2,7 +2,8 @@ package com.howarth.cloud.mainapp.uploads.storage;
 
 import com.howarth.cloud.mainapp.uploads.storage.database.ApplicationApp;
 import com.howarth.cloud.mainapp.uploads.storage.database.ApplicationAppRepository;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
