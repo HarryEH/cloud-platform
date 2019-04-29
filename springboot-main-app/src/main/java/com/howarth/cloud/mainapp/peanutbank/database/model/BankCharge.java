@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class BankCharge {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String username;
@@ -19,7 +19,8 @@ public class BankCharge {
     @Column
     private Timestamp chargeDate;
 
-    public BankCharge(){}
+    public BankCharge() {
+    }
 
     public BankCharge(String username, String app_name, Timestamp chargeDate) {
         this.username = username;

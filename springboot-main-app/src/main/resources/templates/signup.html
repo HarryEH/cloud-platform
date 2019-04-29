@@ -3,13 +3,19 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8"></meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"></meta>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet"></link>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>Sign Up</title>
 </head>
 
@@ -19,7 +25,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Academic Gateway</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -34,7 +41,8 @@
 
     <div class="jumbotron">
         <h1 class="display-4">Academic Gateway Sign Up</h1>
-        <p class="lead">This hosting platforms acts as a home to many apps to make student lives easier. Sign Up now!</p>
+        <p class="lead">This hosting platforms acts as a home to many apps to make student lives easier. Sign Up
+            now!</p>
         <hr class="my-4"></hr>
 
         <div class="row justify-content-around">
@@ -44,14 +52,16 @@
                 <form>
                     <div class="form-group">
                         <label for="signupUsername">Username:</label>
-                        <input type="text" id="signupUsername" class="form-control" name="username" placeholder="Username"></input>
+                        <input class="form-control" id="signupUsername" name="username" placeholder="Username"
+                               type="text"></input>
                     </div>
                     <div class="form-group">
                         <label for="signupPassword">Password:</label>
-                        <input type="password" id="signupPassword" class="form-control" name="password" placeholder="Password"></input>
+                        <input class="form-control" id="signupPassword" name="password" placeholder="Password"
+                               type="password"></input>
                     </div>
 
-                    <input type="submit" id="signupSubmit" class="btn btn-warning" value="Sign Up"></input>
+                    <input class="btn btn-warning" id="signupSubmit" type="submit" value="Sign Up"></input>
                 </form>
             </div>
         </div>
@@ -59,13 +69,13 @@
 </div>
 
 <script>
-    $("#signupSubmit").click(function(e) {
+    $("#signupSubmit").click(function (e) {
         e.preventDefault();
         $.ajax({
             type: "POST",
             url: "/users/sign-up",
             data: JSON.stringify({password: $('#signupPassword').val(), username: $('#signupUsername').val()}),
-            success: function(data, textStatus, request){
+            success: function (data, textStatus, request) {
                 $('#signupPassword').val("");
                 $('#signupUsername').val("");
                 alert("Success! Signed up.");
@@ -76,7 +86,7 @@
                 alert("Failure! Please try again\nPlease try a different username.\n" + errorThrown);
             },
             dataType: "json",
-            contentType : "application/json"
+            contentType: "application/json"
         });
     });
 </script>

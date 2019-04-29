@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class RhhStatistic {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @CreationTimestamp
@@ -17,9 +17,10 @@ public class RhhStatistic {
     private Timestamp createdDate;
     private int numberOfPeople;
 
-    public RhhStatistic(){}
+    public RhhStatistic() {
+    }
 
-    public RhhStatistic(int numberOfPeople){
+    public RhhStatistic(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
     }
 
@@ -28,7 +29,7 @@ public class RhhStatistic {
     }
 
     public Timestamp getCreatedDate() {
-      return createdDate;
+        return createdDate;
     }
 
 

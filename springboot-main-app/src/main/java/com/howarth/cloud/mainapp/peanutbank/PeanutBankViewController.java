@@ -20,12 +20,12 @@ public class PeanutBankViewController {
     }
 
     @GetMapping("/peanut_bank/")
-    public String bank(Model model, HttpServletRequest request){
+    public String bank(Model model, HttpServletRequest request) {
         return homepage(model, request);
     }
 
     @GetMapping("/peanut_bank")
-    public String bankHome(Model model, HttpServletRequest request){
+    public String bankHome(Model model, HttpServletRequest request) {
         return homepage(model, request);
     }
 

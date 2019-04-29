@@ -24,7 +24,7 @@ public class LibraryViewController {
     }
 
     @GetMapping("/library")
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("diamond", diamondRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         model.addAttribute("ic", icRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         model.addAttribute("rhh", rhhRepository.findTopByOrderByIdDesc().getNumberOfPeople());
@@ -34,7 +34,7 @@ public class LibraryViewController {
     }
 
     @GetMapping("/library/")
-    public String lib(Model model){
+    public String lib(Model model) {
         model.addAttribute("diamond", diamondRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         model.addAttribute("ic", icRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         model.addAttribute("rhh", rhhRepository.findTopByOrderByIdDesc().getNumberOfPeople());

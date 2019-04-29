@@ -21,11 +21,12 @@ public class ViewController {
 
     /**
      * The index page of the app - this provides a sign-up, a login, uploading apps and showing the apps we have available
+     *
      * @param model
      * @return
      */
     @GetMapping("/")
-    public String index(Model model, HttpServletRequest request){
+    public String index(Model model, HttpServletRequest request) {
 
         /**
          * This hack is required because we are not uploading the apps as
@@ -61,33 +62,35 @@ public class ViewController {
         }
 
 
-        model.addAttribute("message", message );
+        model.addAttribute("message", message);
 
 
         model.addAttribute("apps", applicationAppRepository.findAll());
-        
+
         return "index";
     }
 
     /**
      * This is the mapping for the view that controls signing in. Which is handled by
      * a post method that doesn't actually need to be in the UserController
+     *
      * @param model
      * @return
      */
     @GetMapping("/users/sign-in")
-    public String signIn(Model model){
+    public String signIn(Model model) {
         return "signin";
     }
 
     /**
      * This is the mapping for the view that controls signing in. Which is handled by
      * a post method that doesn't actually need to be in the UserController
+     *
      * @param model
      * @return
      */
     @GetMapping("/users/sign-up")
-    public String signUp(Model model){
+    public String signUp(Model model) {
         return "signup";
     }
 

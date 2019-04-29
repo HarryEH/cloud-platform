@@ -10,19 +10,19 @@ public class ValidUseToken {
         this.valid = valid;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
-
     public String getUsername() {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public boolean isValid() {
         return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 }

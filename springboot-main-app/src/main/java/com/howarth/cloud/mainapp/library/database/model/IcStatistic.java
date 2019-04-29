@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class IcStatistic {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @CreationTimestamp
@@ -17,9 +17,10 @@ public class IcStatistic {
     private Timestamp createdDate;
     private int numberOfPeople;
 
-    public IcStatistic(){}
+    public IcStatistic() {
+    }
 
-    public IcStatistic(int numberOfPeople){
+    public IcStatistic(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
     }
 
@@ -28,7 +29,7 @@ public class IcStatistic {
     }
 
     public Timestamp getCreatedDate() {
-      return createdDate;
+        return createdDate;
     }
 
 

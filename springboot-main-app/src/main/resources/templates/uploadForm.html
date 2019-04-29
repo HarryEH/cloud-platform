@@ -1,70 +1,78 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8"></meta>
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"></meta>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"></meta>
 
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		<title>Home</title>
-	</head>
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet"></link>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>Home</title>
+</head>
 
-	<body>
+<body>
 
-		<header>
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-				<a class="navbar-brand" href="/">Academic Gateway</a>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Academic Gateway</a>
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-				<div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
-					<ul class="navbar-nav mr-auto">
-					</ul>
-				</div>
-			</nav>
-		</header>
+        <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+        </div>
+    </nav>
+</header>
 
-		<div class="container">
-			<div class="jumbotron">
-				<h1 class="display-4">App Upload</h1>
-				<p class="lead">Upload your apps here to get them published on our platform!</p>
-				<hr class="my-4"></hr>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">App Upload</h1>
+        <p class="lead">Upload your apps here to get them published on our platform!</p>
+        <hr class="my-4"></hr>
 
-				<div th:if="${message}">
-					<h2 th:text="${message}"/>
-				</div>
-			</div>
+        <div th:if="${message}">
+            <h2 th:text="${message}"/>
+        </div>
+    </div>
 
 
-			<div class="row">
-				<div class="col-md-10">
-					<form method="POST" enctype="multipart/form-data" action="/upload">
-						<div class="form-group">
-							<label for="logo">App Logo:</label>
-							<input type="file" id="logo" class="form-control" name="logo"/>
-						</div>
+    <div class="row">
+        <div class="col-md-10">
+            <form action="/upload" enctype="multipart/form-data" method="POST">
+                <div class="form-group">
+                    <label for="logo">App Logo:</label>
+                    <input class="form-control" id="logo" name="logo" type="file"/>
+                </div>
 
-						<div class="form-group">
-							<label for="description">App Description:</label>
-							<input type="text-area" id="description" class="form-control" name="description" placeholder="Describe your app!"/>
-						</div>
+                <div class="form-group">
+                    <label for="description">App Description:</label>
+                    <input class="form-control" id="description" name="description" placeholder="Describe your app!"
+                           type="text-area"/>
+                </div>
 
-						<div class="form-group">
-							<label for="file">Application:</label>
-							<input type="file" class="form-control" id="file" name="file" />
-						</div>
+                <div class="form-group">
+                    <label for="file">Application:</label>
+                    <input class="form-control" id="file" name="file" type="file"/>
+                </div>
 
-						<input type="submit" value="Submit" class="btn btn-primary" />
-					</form>
-				</div>
-			</div>
+                <input class="btn btn-primary" type="submit" value="Submit"/>
+            </form>
+        </div>
+    </div>
 
-		</div>
+</div>
 
-	</body>
+</body>
 </html>

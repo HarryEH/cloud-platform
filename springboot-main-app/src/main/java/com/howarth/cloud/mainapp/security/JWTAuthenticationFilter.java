@@ -60,7 +60,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         res.addCookie(new Cookie("access_token", token));
 
-        String resp = "{ \"access_token\":\""+token+"\", \"expires_in\":\""+ SecurityConstants.EXPIRATION_TIME + "\" }";
+        String resp = "{ \"access_token\":\"" + token + "\", \"expires_in\":\"" + SecurityConstants.EXPIRATION_TIME + "\" }";
 
         res.getWriter().write(resp);
         res.getWriter().flush();

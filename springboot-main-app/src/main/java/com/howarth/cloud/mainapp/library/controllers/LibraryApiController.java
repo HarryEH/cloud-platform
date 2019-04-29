@@ -16,15 +16,15 @@ import java.util.List;
 @RequestMapping(value = "/library/api")
 public class LibraryApiController {
 
-  private DiamondRepository diamondRepository;
-  private IcRepository icRepository;
-  private RhhRepository rhhRepository;
+    private DiamondRepository diamondRepository;
+    private IcRepository icRepository;
+    private RhhRepository rhhRepository;
 
-  public LibraryApiController(DiamondRepository diamondRepository, IcRepository icRepository, RhhRepository rhhRepository) {
-      this.diamondRepository = diamondRepository;
-      this.icRepository = icRepository;
-      this.rhhRepository = rhhRepository;
-  }
+    public LibraryApiController(DiamondRepository diamondRepository, IcRepository icRepository, RhhRepository rhhRepository) {
+        this.diamondRepository = diamondRepository;
+        this.icRepository = icRepository;
+        this.rhhRepository = rhhRepository;
+    }
 
     @GetMapping("/diamond")
     public DiamondStatistic diamond() {
@@ -32,27 +32,27 @@ public class LibraryApiController {
     }
 
     @GetMapping("/ic")
-    public IcStatistic ic(){
-      return icRepository.findTopByOrderByIdDesc();
+    public IcStatistic ic() {
+        return icRepository.findTopByOrderByIdDesc();
     }
 
     @GetMapping("/rhh")
-    public RhhStatistic rhh(){
-      return rhhRepository.findTopByOrderByIdDesc();
+    public RhhStatistic rhh() {
+        return rhhRepository.findTopByOrderByIdDesc();
     }
 
     @GetMapping("/diamond/all")
     public List<DiamondStatistic> allDiamond() {
-      return diamondRepository.findAll();
+        return diamondRepository.findAll();
     }
 
     @GetMapping("/ic/all")
-    public List<IcStatistic> allIc(){
-      return icRepository.findAll();
+    public List<IcStatistic> allIc() {
+        return icRepository.findAll();
     }
 
     @GetMapping("/rhh/all")
-    public List<RhhStatistic> allRhh(){
-      return rhhRepository.findAll();
+    public List<RhhStatistic> allRhh() {
+        return rhhRepository.findAll();
     }
 }

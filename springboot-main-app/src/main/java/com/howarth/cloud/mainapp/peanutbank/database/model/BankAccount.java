@@ -9,13 +9,14 @@ import javax.persistence.Id;
 public class BankAccount {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String username;
     private int balance;
 
-    public BankAccount(){}
+    public BankAccount() {
+    }
 
     public BankAccount(String username, int balance) {
         this.username = username;

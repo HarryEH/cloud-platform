@@ -13,16 +13,16 @@ import java.util.List;
 @RequestMapping(value = "/peanut_bank")
 public class PeanutBankController {
 
-  private final BankAccountRepository bankAccountRepository;
-  private final ApplicationAppRepository applicationAppRepository;
+    private final BankAccountRepository bankAccountRepository;
+    private final ApplicationAppRepository applicationAppRepository;
 
-  public PeanutBankController(BankAccountRepository bankAccountRepository, ApplicationAppRepository applicationAppRepository) {
-    this.bankAccountRepository = bankAccountRepository;
-    this.applicationAppRepository = applicationAppRepository;
-  }
+    public PeanutBankController(BankAccountRepository bankAccountRepository, ApplicationAppRepository applicationAppRepository) {
+        this.bankAccountRepository = bankAccountRepository;
+        this.applicationAppRepository = applicationAppRepository;
+    }
 
 
-  //FIXME this is an example of how you can create an account. - the signup microservice will post to this url itself
+    //FIXME this is an example of how you can create an account. - the signup microservice will post to this url itself
   /*
   $.ajax({
     type: "POST",
@@ -39,25 +39,25 @@ public class PeanutBankController {
   });
   */
 
-  @PostMapping("/new_account")
-  public ValidUseToken newAccount(@RequestBody BankAccount account) {
-    if (bankAccountRepository.findByUsername(account.getUsername()) != null) {
-      return new ValidUseToken("-", false);
+    @PostMapping("/new_account")
+    public ValidUseToken newAccount(@RequestBody BankAccount account) {
+        if (bankAccountRepository.findByUsername(account.getUsername()) != null) {
+            return new ValidUseToken("-", false);
+        }
+        account.setBalance(1000);
+        BankAccount b = bankAccountRepository.save(account);
+        return new ValidUseToken(b.getUsername(), true);
     }
-    account.setBalance(1000);
-    BankAccount b = bankAccountRepository.save(account);
-    return new ValidUseToken(b.getUsername(), true);
-  }
 
-  @GetMapping("/all_accounts")
-  public List<BankAccount> allAccounts() {
-    return bankAccountRepository.findAll();
-  }
+    @GetMapping("/all_accounts")
+    public List<BankAccount> allAccounts() {
+        return bankAccountRepository.findAll();
+    }
 
-  @GetMapping("/usage")
-  public ValidUseToken usage(@Param("access_token") String access_token, @Param("app_name") String app_name,
+    @GetMapping("/usage")
+    public ValidUseToken usage(@Param("access_token") String access_token, @Param("app_name") String app_name,
                                HttpServletRequest request) {
-    //TODO
+        //TODO
     /*
     Call static Java method to get user from access_token
     So now you know who  is using the app.
@@ -68,7 +68,7 @@ public class PeanutBankController {
     (or whatever time period) and split and send the money to the app_owner_username account as well as the
     platform owner account (as specified in spec).
      */
-    return new ValidUseToken("hello world", true);
-  }
+        return new ValidUseToken("hello world", true);
+    }
 
 }

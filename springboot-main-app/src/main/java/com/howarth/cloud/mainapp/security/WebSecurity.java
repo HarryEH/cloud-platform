@@ -13,7 +13,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static com.howarth.cloud.mainapp.security.SecurityConstants.*;
+import static com.howarth.cloud.mainapp.security.SecurityConstants.ALL_USERS;
+import static com.howarth.cloud.mainapp.security.SecurityConstants.INDEX;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {

@@ -24,6 +24,44 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         super(authManager);
     }
 
+    public static String verifyCookieAuth(HttpServletRequest request) {
+        String token = null;
+
+        if (request.getCookies() == null) {
+            return null;
+        }
+
+        for (Cookie c : request.getCookies()) {
+            if (c.getName().equals(ACCESS_TOKEN)) {
+                token = c.getValue();
+            }
+        }
+
+        if (token == null) {
+            return null;
+        }
+
+        try {
+            String user = verifyToken(token, SecurityConstants.SECRET, "");
+            return user;
+        } catch (JWTVerificationException exc) {
+            return null;
+        }
+
+
+    }
+
+    public static String verifyToken(final String token, final String secret, final String prefix) {
+        try {
+            return JWT.require(Algorithm.HMAC512(secret.getBytes()))
+                    .build()
+                    .verify(prefix.equals("") ? token : token.replace(prefix, ""))
+                    .getSubject();
+        } catch (JWTVerificationException e) {
+            return null;
+        }
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
@@ -48,7 +86,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         }
     }
 
-    private UsernamePasswordAuthenticationToken verifyBearerAuth(final String token){
+    private UsernamePasswordAuthenticationToken verifyBearerAuth(final String token) {
         // parse the token.
         String user = verifyToken(token, SecurityConstants.SECRET, SecurityConstants.TOKEN_PREFIX);
 
@@ -56,43 +94,5 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
         }
         return null;
-    }
-
-    public static String verifyCookieAuth(HttpServletRequest request) {
-        String token = null;
-
-        if (request.getCookies() == null ) {
-            return null;
-        }
-
-        for (Cookie c : request.getCookies()) {
-            if (c.getName().equals(ACCESS_TOKEN)) {
-                token = c.getValue();
-            }
-        }
-
-        if (token == null) {
-            return null;
-        }
-
-        try {
-            String user = verifyToken(token, SecurityConstants.SECRET, "");
-            return user;
-        }  catch (JWTVerificationException exc) {
-            return null;
-        }
-
-
-    }
-
-    public static String verifyToken(final String token, final String secret, final String prefix) {
-        try {
-            return JWT.require(Algorithm.HMAC512(secret.getBytes()))
-                    .build()
-                    .verify(prefix.equals("") ? token : token.replace(prefix, ""))
-                    .getSubject();
-        } catch (JWTVerificationException e) {
-            return null;
-        }
     }
 }

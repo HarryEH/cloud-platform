@@ -32,6 +32,7 @@ public class UserController {
 
     /**
      * Mapping for user sign up. This saves the ApplicationUser in the JPA repository
+     *
      * @param user a user object with a username and password
      * @return
      */
@@ -49,7 +50,7 @@ public class UserController {
     }
 
 
-    private void createBankAccount(String username, int balance, HttpServletRequest request){
+    private void createBankAccount(String username, int balance, HttpServletRequest request) {
         JSONObject bankAccount = createJsonBankAccount(username, balance);
 
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -63,8 +64,8 @@ public class UserController {
 
             // This automatically gets the correct URL to sent the request to.
             final String URL = request.getScheme() + "://" + request.getServerName() +
-                        ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +
-                        SecurityConstants.CREATE_ACCOUNT;
+                    ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort()) +
+                    SecurityConstants.CREATE_ACCOUNT;
 
 
             HttpPost req = new HttpPost(URL);
@@ -102,7 +103,7 @@ public class UserController {
     @GetMapping("/verify_token")
     public VerifiedToken verify(@Param("access_token") String access_token) {
 
-        System.out.println("\n\n"+access_token+"\n\n");
+        System.out.println("\n\n" + access_token + "\n\n");
 
         try {
             String user = verifyToken(access_token, SecurityConstants.SECRET, "");
@@ -115,6 +116,7 @@ public class UserController {
     /**
      * This returns a list of all the users of the site
      * FIXME: remove this
+     *
      * @return List of ApplicationUser that includes all the signed up users of the platform
      */
     @GetMapping("/all")
