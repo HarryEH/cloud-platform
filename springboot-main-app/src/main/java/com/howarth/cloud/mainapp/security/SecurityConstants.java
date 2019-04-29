@@ -18,4 +18,5 @@ public class SecurityConstants {
     public static final String ALL_USERS = "/users/all";
 
     public static final String CREATE_ACCOUNT = "/peanut_bank/new_account";
+    public static final String NEW_USAGE = "/peanut_bank/usage";
 }

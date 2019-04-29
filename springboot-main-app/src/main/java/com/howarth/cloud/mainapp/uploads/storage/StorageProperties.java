@@ -8,6 +8,8 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
+    private String tomcatRoot = "/var/lib/tomcat8/webapps/";
+
     private String location = "/var/lib/tomcat8/webapps/ROOT/upload-dir/";
 //    private String location = "upload-dir/";
 

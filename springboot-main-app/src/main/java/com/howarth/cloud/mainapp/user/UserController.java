@@ -2,6 +2,7 @@ package com.howarth.cloud.mainapp.user;
 
 import com.howarth.cloud.mainapp.security.SecurityConstants;
 import com.howarth.cloud.mainapp.security.VerifiedToken;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
