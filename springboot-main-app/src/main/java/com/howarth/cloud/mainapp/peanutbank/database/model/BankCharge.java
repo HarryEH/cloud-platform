@@ -13,7 +13,7 @@ public class BankCharge {
     private long id;
 
     private String username;
-    private String app_name;
+    private String appName;
 
     @CreationTimestamp
     @Column
@@ -24,7 +24,7 @@ public class BankCharge {
 
     public BankCharge(String username, String app_name, Timestamp chargeDate) {
         this.username = username;
-        this.app_name = app_name;
+        this.appName = app_name;
         this.chargeDate = chargeDate;
     }
 
@@ -37,11 +37,11 @@ public class BankCharge {
     }
 
     public String getApp_name() {
-        return app_name;
+        return appName;
     }
 
     public void setApp_name(String app_name) {
-        this.app_name = app_name;
+        this.appName = app_name;
     }
 
     public Timestamp getChargeDate() {

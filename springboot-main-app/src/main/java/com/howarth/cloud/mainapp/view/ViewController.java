@@ -1,7 +1,13 @@
 package com.howarth.cloud.mainapp.view;
 
+import com.howarth.cloud.mainapp.peanutbank.database.BankAccountRepository;
+import com.howarth.cloud.mainapp.peanutbank.database.BankChargeRepository;
+import com.howarth.cloud.mainapp.peanutbank.database.model.BankAccount;
 import com.howarth.cloud.mainapp.uploads.storage.database.ApplicationApp;
 import com.howarth.cloud.mainapp.uploads.storage.database.ApplicationAppRepository;
+import com.howarth.cloud.mainapp.user.ApplicationUser;
+import com.howarth.cloud.mainapp.user.ApplicationUserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +20,13 @@ import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyCo
 public class ViewController {
 
     private final ApplicationAppRepository applicationAppRepository;
+    private final BankAccountRepository bankAccountRepository;
+    private final ApplicationUserRepository applicationUserRepository;
 
-    public ViewController(ApplicationAppRepository applicationAppRepository) {
+    public ViewController(ApplicationAppRepository applicationAppRepository, BankAccountRepository bankAccountRepository, ApplicationUserRepository applicationUserRepository) {
         this.applicationAppRepository = applicationAppRepository;
+        this.bankAccountRepository = bankAccountRepository;
+        this.applicationUserRepository = applicationUserRepository;
     }
 
     /**
@@ -29,6 +39,24 @@ public class ViewController {
     public String index(Model model, HttpServletRequest request) {
 
         /**
+         * This is another hack that is required
+         */
+        final String[] usernames = {"hapatel1", "hhowarth1", "nstevenson1", "jcdhan1"};
+        for(String username : usernames) {
+            if(applicationUserRepository.findByUsername(username) == null) {
+                ApplicationUser user = new ApplicationUser();
+                user.setPassword(new BCryptPasswordEncoder().encode("password"));
+                user.setUsername(username);
+                applicationUserRepository.save(user);
+
+                BankAccount bankAccount = new BankAccount();
+                bankAccount.setUsername(username);
+                bankAccount.setBalance(1000);
+                bankAccountRepository.save(bankAccount);
+            }
+        }
+
+        /**
          * This hack is required because we are not uploading the apps as
          * seperate spring applications - so add the embedded apps as if they
          * were uploaded through the web form.
@@ -37,9 +65,12 @@ public class ViewController {
             ApplicationApp library = new ApplicationApp();
             library.setName("library");
             library.setLogo("/diamond");
+            library.setUsername("hhowarth1");
             library.setDescription("This is applications recommends which library to visit!");
             applicationAppRepository.save(library);
         }
+
+
 
         if (applicationAppRepository.findByName("other") == null) {
             //todo fill this in  later

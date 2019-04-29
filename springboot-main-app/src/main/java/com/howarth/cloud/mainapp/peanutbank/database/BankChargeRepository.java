@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BankChargeRepository extends JpaRepository<BankCharge, Long> {
-    BankCharge findByUsername(String username);
+    BankCharge findByUsernameAndAppName(String username, String appName);
 }
