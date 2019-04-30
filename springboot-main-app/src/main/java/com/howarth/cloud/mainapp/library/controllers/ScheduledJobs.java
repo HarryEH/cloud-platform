@@ -19,60 +19,59 @@ import java.net.URLConnection;
 @Component
 public class ScheduledJobs {
 
-  private DiamondRepository diamondRepository;
-  private IcRepository icRepository;
-  private RhhRepository rhhRepository;
+    private final int ERR = -1;
+    private DiamondRepository diamondRepository;
+    private IcRepository icRepository;
+    private RhhRepository rhhRepository;
 
-  public ScheduledJobs(DiamondRepository diamondRepository, IcRepository icRepository, RhhRepository rhhRepository) {
-      this.diamondRepository = diamondRepository;
-      this.icRepository = icRepository;
-      this.rhhRepository = rhhRepository;
-  }
+    public ScheduledJobs(DiamondRepository diamondRepository, IcRepository icRepository, RhhRepository rhhRepository) {
+        this.diamondRepository = diamondRepository;
+        this.icRepository = icRepository;
+        this.rhhRepository = rhhRepository;
+    }
 
-  private final int ERR = -1;
+    @Scheduled(fixedRate = 30000)
+    public void scheduleTaskDiamond() {
+        DiamondStatistic dia = new DiamondStatistic(genericLibraryGet("diamond"));
+        diamondRepository.save(dia);
+    }
 
-  @Scheduled(fixedRate = 30000)
-  public void scheduleTaskDiamond() {
-    DiamondStatistic dia = new DiamondStatistic(genericLibraryGet("diamond"));
-    diamondRepository.save(dia);
-  }
+    @Scheduled(fixedRate = 30000)
+    public void scheduleTaskIc() {
+        IcStatistic ic = new IcStatistic(genericLibraryGet("ic"));
+        icRepository.save(ic);
+    }
 
-  @Scheduled(fixedRate = 30000)
-  public void scheduleTaskIc() {
-    IcStatistic ic = new IcStatistic(genericLibraryGet("ic"));
-    icRepository.save(ic);
-  }
-
-  @Scheduled(fixedRate = 30000)
-  public void scheduleTaskRhh() {
-    RhhStatistic rhh = new RhhStatistic(genericLibraryGet("rhh"));
-    rhhRepository.save(rhh);
-  }
+    @Scheduled(fixedRate = 30000)
+    public void scheduleTaskRhh() {
+        RhhStatistic rhh = new RhhStatistic(genericLibraryGet("rhh"));
+        rhhRepository.save(rhh);
+    }
 
 
-  private int genericLibraryGet(String library) {
-    try {
-      URLConnection lib = new URL("https://fast-hamlet-42269.herokuapp.com/"+library).openConnection();
-
-      BufferedReader in = new BufferedReader(new InputStreamReader(lib.getInputStream()));
-      
-      String inputLine;
-
-      while ((inputLine = in.readLine()) != null) {
-        String rtn = inputLine;
-        in.close();
+    private int genericLibraryGet(String library) {
         try {
-          return Integer.parseInt(rtn);
-        } catch (NumberFormatException ex) {
-          return ERR;
+            URLConnection lib = new URL("https://fast-hamlet-42269.herokuapp.com/" + library).openConnection();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(lib.getInputStream()));
+
+            String inputLine;
+
+            while ((inputLine = in.readLine()) != null) {
+                String rtn = inputLine;
+                in.close();
+                try {
+                    return Integer.parseInt(rtn);
+                } catch (NumberFormatException ex) {
+                    return ERR;
+                }
+            }
+        } catch (MalformedURLException urlEx) {
+            return ERR;
+        } catch (IOException ioEx) {
+            return ERR;
         }
-      }
-    } catch (MalformedURLException urlEx ) {
-      return ERR;
-    } catch (IOException ioEx) {
-      return ERR;
-    } 
-    return ERR;
-  }
+        return ERR;
+    }
 
 }

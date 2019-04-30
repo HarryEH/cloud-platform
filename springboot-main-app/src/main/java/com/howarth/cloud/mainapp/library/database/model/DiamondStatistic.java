@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class DiamondStatistic {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @CreationTimestamp
@@ -17,9 +17,10 @@ public class DiamondStatistic {
     private Timestamp createdDate;
     private int numberOfPeople;
 
-    public DiamondStatistic(){}
+    public DiamondStatistic() {
+    }
 
-    public DiamondStatistic(int numberOfPeople){
+    public DiamondStatistic(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
     }
 
@@ -28,7 +29,7 @@ public class DiamondStatistic {
     }
 
     public Timestamp getCreatedDate() {
-      return createdDate;
+        return createdDate;
     }
 
 

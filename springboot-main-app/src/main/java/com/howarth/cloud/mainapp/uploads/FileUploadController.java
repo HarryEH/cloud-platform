@@ -1,9 +1,9 @@
 package com.howarth.cloud.mainapp.uploads;
 
+import com.howarth.cloud.mainapp.uploads.storage.StorageService;
 import com.howarth.cloud.mainapp.uploads.storage.database.ApplicationApp;
 import com.howarth.cloud.mainapp.uploads.storage.database.ApplicationAppRepository;
 import com.howarth.cloud.mainapp.uploads.storage.exception.StorageFileNotFoundException;
-import com.howarth.cloud.mainapp.uploads.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,19 +43,13 @@ public class FileUploadController {
     public String handleFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file, @RequestParam("logo") MultipartFile logo,
                                    @RequestParam("description") String description, RedirectAttributes redirectAttributes) {
 
-        if (logo == null || file == null || description == null) {
+        if (file == null || description == null) {
             redirectAttributes.addFlashAttribute("message",
                     "You missed a required field!");
             return REDIRECT_HOME_UPLOAD;
         }
 
         String filename = file.getOriginalFilename().replace(".war", "");
-
-        if (!logo.getContentType().contains("image")) {
-            redirectAttributes.addFlashAttribute("message",
-                    "The logo was not an image...");
-            return REDIRECT_HOME_UPLOAD;
-        }
 
         if (!file.getOriginalFilename().contains("war")) {
             redirectAttributes.addFlashAttribute("message",
@@ -74,7 +68,6 @@ public class FileUploadController {
                 System.getProperty("user.dir") + "\n\n");
 
         // Store the images
-        storageService.store(logo);
         storageService.store(file);
 
         ApplicationApp applicationApp = new ApplicationApp();
