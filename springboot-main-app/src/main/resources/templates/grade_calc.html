@@ -97,7 +97,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="editModule" action="#" th:action="@{/updm}" th:object="${newm}" method="post">
+                    <form id="editModule" action="#" th:action="@{/grade_calculator/updm}" th:object="${newm}" method="post">
                         <input type="hidden" id="module-id" th:field="*{id}"></input>
                         <div class="form-group">
                             <label for="module-name" class="col-form-label">Module Name:</label>
@@ -128,7 +128,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="editGrade" action="#" th:action="@{/updg}" th:object="${newg}" method="post" data-rem_weight="100">
+                    <form id="editGrade" action="#" th:action="@{/grade_calculator/updg}" th:object="${newg}" method="post" data-rem_weight="100">
                         <input type="hidden" id="grade-id" th:field="*{id}"></input>
                         <input type="hidden" id="grade-parent-id" th:field="*{parentId}"></input>
                         <div class="form-group">

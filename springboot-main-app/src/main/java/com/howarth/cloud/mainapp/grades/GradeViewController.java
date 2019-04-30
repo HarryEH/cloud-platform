@@ -68,7 +68,7 @@ public class GradeViewController {
             umr.save(curUser);
         }
 
-        return "redirect:/";
+        return "redirect:/grade_calculator";
     }
 
     @PostMapping("/grade_calculator/updg")
@@ -91,7 +91,7 @@ public class GradeViewController {
             mr.save(curModule);
         }
 
-        return "redirect:/";
+        return "redirect:/grade_calculator";
     }
 
     @GetMapping("/grade_calculator/delete_grade")
