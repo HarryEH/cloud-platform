@@ -37,9 +37,13 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="jumbotron">
-                    <h2>
-                        Hello, world!
-                    </h2>
+                    <h2 th:text="${'Welcome, '+user.getUsername()+'!'}"></h2>
+                    <p>
+                        Click on any module name below to view the associated assignments. Or, click 'Add New Module'. Only completed modules will count towards your current credit total.
+                    </p>
+                    <p>
+                        The numbers below show your current average, alongside the average you'd need to maintain to reach a pass, 2:2, 2:1 or 1st class degree.
+                    </p>
                     <p th:text="${'Credits: '+user.getCredits()+'/'+user.getTotalCredits()}"></p>
                     <p th:with="targets=${user.getTargets()}">
                         <span th:text="${'Current Average: '+user.getAverage()+' | To Pass: '+targets[0]+' | To 2:2: '+targets[1]+' | To 2:1: '+targets[2]+' | To 1st: '+targets[3]}"></span>
@@ -53,8 +57,7 @@
 
                                 <button type="button" class="btn btn-primary col-md-2 float-right" data-toggle="modal" data-target="#editM"
                                         th:attr="data-module_id=*{getId()}, data-module_name=*{getModuleName()},
-                                        data-module_credits=*{getCredits()}, data-spare_creds=${user.getSpareCredits()}">
-                                    Edit Module</button>
+                                        data-module_credits=*{getCredits()}">Edit Module</button>
                                 <a th:href="@{/delete_module(moduleId=*{getId()}, userId=${user.getId()})}" class="btn btn-danger col-md-2">Delete</a>
                             </div>
                             <div th:id="${'card-element-' + ind.count}" class="collapse pl-4">
@@ -80,9 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button id="addModuleBtn" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editM"
-                                th:attr="data-spare_creds=${user.getSpareCredits()}"
-                                th:disabled="${user.getSpareCredits() > 0 ? false : true}">Add New Module</button>
+                        <button id="addModuleBtn" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editM">Add New Module</button>
                     </div>
                 </div>
             </div>
@@ -108,7 +109,7 @@
                         <div class="form-group">
                             <label for="module-credits" class="col-form-label">Credits:</label>
                             <input type="number" class="form-control" id="module-credits" th:field="*{credits}" required="required"
-                            min="0" th:max="${user.getTotalCredits()}"></input>
+                            min="0"></input>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Submit"/>

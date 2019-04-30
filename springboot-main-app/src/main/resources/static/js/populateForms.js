@@ -2,7 +2,6 @@ $('#editM').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modId = 0; var modName = ""; var modCredits = 0;
 
-    var spareCreds = button.data('spare_creds');
     $(this).find('.modal-title').text('Add New Module');
 
     if(button.attr('id') !== "addModuleBtn") {
@@ -15,7 +14,6 @@ $('#editM').on('show.bs.modal', function (event) {
     $('#module-name').val(modName);
     var modCred = $('#module-credits');
     modCred.val(modCredits);
-    modCred.prop('max', spareCreds);
 });
 
 $('#editG').on('show.bs.modal', function (event) {
