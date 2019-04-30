@@ -37,40 +37,7 @@ public class ViewController {
      */
     @GetMapping("/")
     public String index(Model model, HttpServletRequest request) {
-
-        /**
-         * This is another hack that is required
-         */
-        final String[] usernames = {"hapatel1", "hhowarth1", "nstevenson1", "jcdhan1"};
-        for(String username : usernames) {
-            if(applicationUserRepository.findByUsername(username) == null) {
-                ApplicationUser user = new ApplicationUser();
-                user.setPassword(new BCryptPasswordEncoder().encode("password"));
-                user.setUsername(username);
-                applicationUserRepository.save(user);
-
-                BankAccount bankAccount = new BankAccount();
-                bankAccount.setUsername(username);
-                bankAccount.setBalance(1000);
-                bankAccountRepository.save(bankAccount);
-            }
-        }
-
-        /**
-         * This hack is required because we are not uploading the apps as
-         * seperate spring applications - so add the embedded apps as if they
-         * were uploaded through the web form.
-         */
-        if (applicationAppRepository.findByName("library") == null) {
-            ApplicationApp library = new ApplicationApp();
-            library.setName("library");
-            library.setLogo("/diamond");
-            library.setUsername("hhowarth1");
-            library.setDescription("This is applications recommends which library to visit!");
-            applicationAppRepository.save(library);
-        }
-
-
+        horribleHack();
 
         if (applicationAppRepository.findByName("other") == null) {
             //todo fill this in  later
@@ -122,6 +89,50 @@ public class ViewController {
     @GetMapping("/users/sign-up")
     public String signUp(Model model) {
         return "signup";
+    }
+
+
+    private void horribleHack() {
+        /**
+         * This is another hack that is required
+         */
+        final String[] usernames = {"hapatel1", "hhowarth1", "nstevenson1", "jcdhan1"};
+        for(String username : usernames) {
+            if(applicationUserRepository.findByUsername(username) == null) {
+                ApplicationUser user = new ApplicationUser();
+                user.setPassword(new BCryptPasswordEncoder().encode("password"));
+                user.setUsername(username);
+                applicationUserRepository.save(user);
+
+                BankAccount bankAccount = new BankAccount();
+                bankAccount.setUsername(username);
+                bankAccount.setBalance(1000);
+                bankAccountRepository.save(bankAccount);
+            }
+        }
+
+        /**
+         * This hack is required because we are not uploading the apps as
+         * seperate spring applications - so add the embedded apps as if they
+         * were uploaded through the web form.
+         */
+        if (applicationAppRepository.findByName("library") == null) {
+            ApplicationApp library = new ApplicationApp();
+            library.setName("library");
+            library.setLogo("/diamond");
+            library.setUsername("hhowarth1");
+            library.setDescription("This is applications recommends which library to visit!");
+            applicationAppRepository.save(library);
+        }
+
+        if (applicationAppRepository.findByName("grade_calculator") == null) {
+            ApplicationApp library = new ApplicationApp();
+            library.setName("grade_calculator");
+            library.setLogo("/diamond");
+            library.setUsername("nstevenson1");
+            library.setDescription("This is an application to calculate your grades!");
+            applicationAppRepository.save(library);
+        }
     }
 
 }

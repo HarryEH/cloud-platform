@@ -17,13 +17,13 @@ import java.util.List;
 import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyCookieAuth;
 
 @Controller
-public class ViewController {
+public class GradeViewController {
     private UserModuleRepository umr;
     private ModuleRepository mr;
     private GradeRepository gr;
     private String user = "empty";
 
-    public ViewController(UserModuleRepository umr, ModuleRepository mr, GradeRepository gr) {
+    public GradeViewController(UserModuleRepository umr, ModuleRepository mr, GradeRepository gr) {
         this.umr = umr;
         this.mr = mr;
         this.gr = gr;
