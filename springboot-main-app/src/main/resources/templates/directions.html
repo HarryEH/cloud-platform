@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"></meta>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"></meta>
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet"></link>
+    <title>Library Recommendation</title>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Academic Gateway</a>
+
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Library Space Finder</h1>
+        <p class="lead">This webpage directs you to your library of choice!</p>
+    </div>
+
+    <div class="row justify-content-around">
+        <div class="col-md-10">
+            <table class="table">
+                <thead>
+                <th scope="col">Distance</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Description</th>
+                </thead>
+                <tbody>
+                <tr scope="row" th:each="step : ${directions}">
+                    <td th:text="${step.distance}">
+                    </td>
+                    <td th:text="${step.duration}">
+                    </td>
+                    <td th:utext="${step.htmlInstructions}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -43,19 +43,13 @@ public class FileUploadController {
     public String handleFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file, @RequestParam("logo") MultipartFile logo,
                                    @RequestParam("description") String description, RedirectAttributes redirectAttributes) {
 
-        if (logo == null || file == null || description == null) {
+        if (file == null || description == null) {
             redirectAttributes.addFlashAttribute("message",
                     "You missed a required field!");
             return REDIRECT_HOME_UPLOAD;
         }
 
         String filename = file.getOriginalFilename().replace(".war", "");
-
-        if (!logo.getContentType().contains("image")) {
-            redirectAttributes.addFlashAttribute("message",
-                    "The logo was not an image...");
-            return REDIRECT_HOME_UPLOAD;
-        }
 
         if (!file.getOriginalFilename().contains("war")) {
             redirectAttributes.addFlashAttribute("message",
@@ -74,7 +68,6 @@ public class FileUploadController {
                 System.getProperty("user.dir") + "\n\n");
 
         // Store the images
-        storageService.store(logo);
         storageService.store(file);
 
         ApplicationApp applicationApp = new ApplicationApp();

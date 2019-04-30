@@ -10,8 +10,8 @@ public class StorageProperties {
      */
     private String tomcatRoot = "/var/lib/tomcat8/webapps/";
 
-//    private String location = "/var/lib/tomcat8/webapps/ROOT/upload-dir/";
-    private String location = "upload-dir/";
+    private String location = "/var/lib/tomcat8/webapps/ROOT/upload-dir/";
+//    private String location = "upload-dir/";
 
 
     public String getLocation() {

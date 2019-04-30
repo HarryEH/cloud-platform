@@ -106,7 +106,7 @@
                         <input type="hidden" name="library" id="library" value="diamond"></input>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="postcode" placeholder="Enter postcode"></input>
+                        <input type="text" class="form-control" name="postcode" placeholder="Enter postcode"></input>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -123,17 +123,27 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Get me to the IC!</h5>
+                <h5 class="modal-title" id="icModalLabel">Get me to the IC!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <form method="get" action="/library/directions">
+
+                    <div class="form-group">
+                        <input type="hidden" name="library" value="ic"></input>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="postcode" placeholder="Enter postcode"></input>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+
             </div>
         </div>
     </div>
@@ -143,17 +153,26 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Get me to the RHH!</h5>
+                <h5 class="modal-title" id="rhhModalLabel">Get me to the RHH!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <form method="get" action="/library/directions">
+
+                    <div class="form-group">
+                        <input type="hidden" name="library" value="rhh"></input>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="postcode" placeholder="Enter postcode"></input>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
@@ -166,5 +185,9 @@
 <script crossorigin="anonymous"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+
+</script>
 </body>
 </html>

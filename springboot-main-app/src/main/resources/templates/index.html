@@ -42,9 +42,13 @@
     <div class="jumbotron">
         <h1 class="display-4">Academic Gateway</h1>
         <h4 th:text="${message}"></h4>
-        <p class="lead">This hosting platforms acts as a home to many apps to make student lives easier. See our apps
-            below! Sign-up and login to use them!</p>
+
         <hr class="my-4"></hr>
+        <p class="lead">This hosting platforms acts as a home to many apps to make student lives easier. See our apps
+            below!</p>
+        <div th:if="${!loggedIn}">
+            <p class="lead"> Sign-up and login to use them!</p>
+        </div>
 
         <div class="row justify-content-center pt-5">
 
@@ -83,12 +87,15 @@
             <table class="table">
                 <thead>
                     <th scope="col">App Name</th>
+                    <th scope="col">App Creator</th>
                     <th scope="col">Description</th>
                     <th scope="col">Link</th>
                 </thead>
                 <tbody>
                     <tr scope="row" th:each="app : ${apps}">
                         <td th:text="${app.name}">
+                        </td>
+                        <td th:text="${app.username}">
                         </td>
                         <td th:text="${app.description}">
                         </td>
