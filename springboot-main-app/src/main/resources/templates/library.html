@@ -48,6 +48,10 @@
                         card's content.</p>
                     <!--<a id="diamondCount" href="#" class="btn btn-primary">Live Count</a>-->
                     <p th:text="${diamond}"></p>
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#diamondModal">
+                        Get me there!
+                    </button>
                 </div>
             </div>
         </div>
@@ -60,6 +64,10 @@
                         card's content.</p>
                     <!--<a id="icCount" href="#" class="btn btn-primary">Live Count</a>-->
                     <p th:text="${ic}"></p>
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#icModal">
+                        Get me there!
+                    </button>
                 </div>
             </div>
         </div>
@@ -71,8 +79,72 @@
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                         card's content.</p>
                     <p th:text="${rhh}"></p>
-                    <!--<a id="rhhCount" href="#" class="btn btn-primary">Live Count</a>-->
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rhhModal">
+                        Get me there!
+                    </button>
+
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="diamondModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Get me to the Diamond!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="icModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Get me to the IC!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rhhModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Get me to the RHH!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>

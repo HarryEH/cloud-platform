@@ -10,6 +10,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.core.env.Environment;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,6 +53,16 @@ public class LibraryViewController {
         model.addAttribute("rhh", rhhRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         return "library";
     }
+
+    @GetMapping("/library/directions")
+    public String directionsToLibrary(Model model, HttpServletRequest request,
+                                      @Param("library") String library, @Param("postcode") String postcode) {
+        System.out.println(library);
+        System.out.println(postcode);
+
+        return "directions";
+    }
+
 
     private void informPaymentServer(HttpServletRequest request) {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
