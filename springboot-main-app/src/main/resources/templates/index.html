@@ -47,17 +47,25 @@
         <hr class="my-4"></hr>
 
         <div class="row justify-content-center pt-5">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <a class="btn btn-warning btn-lg" href="/users/sign-up">Sign Up</a>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <a class="btn btn-primary btn-lg" href="/users/sign-in">Sign In</a>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <a class="btn btn-danger btn-lg" href="/upload">Upload App</a>
             </div>
+
+            <div th:if="${loggedIn}">
+                <div class="col-sm-3">
+                    <a class="btn btn-info btn-lg" href="/peanut_bank">Peanut Bank</a>
+                </div>
+            </div>
+
+
         </div>
 
     </div>

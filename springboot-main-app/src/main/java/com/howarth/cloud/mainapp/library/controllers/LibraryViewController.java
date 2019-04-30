@@ -50,8 +50,6 @@ public class LibraryViewController {
         model.addAttribute("diamond", diamondRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         model.addAttribute("ic", icRepository.findTopByOrderByIdDesc().getNumberOfPeople());
         model.addAttribute("rhh", rhhRepository.findTopByOrderByIdDesc().getNumberOfPeople());
-        model.addAttribute("best", "Diamond");
-
         return "library";
     }
 

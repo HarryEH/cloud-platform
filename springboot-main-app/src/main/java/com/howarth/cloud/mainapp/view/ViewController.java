@@ -80,22 +80,21 @@ public class ViewController {
 
         final String NOT_LOGGED_IN = "You are not logged in!";
 
+        boolean loggedIn = false;
+
         if (message != null) {
             if (message.equals("-")) {
                 message = NOT_LOGGED_IN;
             } else {
+                loggedIn = true;
                 message = "You are logged in as " + message + "!";
             }
-
-
         } else {
             message = NOT_LOGGED_IN;
         }
 
-
         model.addAttribute("message", message);
-
-
+        model.addAttribute("loggedIn", loggedIn);
         model.addAttribute("apps", applicationAppRepository.findAll());
 
         return "index";
