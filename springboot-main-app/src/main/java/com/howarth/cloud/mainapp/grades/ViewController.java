@@ -10,53 +10,34 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyCookieAuth;
 
 @Controller
 public class ViewController {
     private UserModuleRepository umr;
     private ModuleRepository mr;
     private GradeRepository gr;
-    private String user = "nstevenson1";
+    private String user = "empty";
 
     public ViewController(UserModuleRepository umr, ModuleRepository mr, GradeRepository gr) {
         this.umr = umr;
         this.mr = mr;
         this.gr = gr;
-
-        //TODO: Handle new user setup
-        //TODO: Find actual current user
-
-        umr.deleteAll();
-        mr.deleteAll();
-        gr.deleteAll();
-
-        List<Grade> grades1 = new ArrayList<>();
-        List<Grade> grades2 = new ArrayList<>();
-        grades1.add(new Grade("Assignment 1", 20, 20, 40));
-        grades1.add(new Grade("Assignment 2", 20, 20, 40));
-        grades1.add(new Grade("Assignment 3", 8, 10, 20));
-        grades2.add(new Grade("Assignment 1", 20, 20, 40));
-        grades2.add(new Grade("Assignment 2", 20, 20, 20));
-        grades2.add(new Grade("Assignment 3", 8, 10, 20));
-        gr.save(grades1);
-        gr.save(grades2);
-
-        Module m1 = new Module("COM4519", 10, grades1);
-        Module m2 = new Module("COM4521", 20, grades2);
-        mr.save(m1);
-        mr.save(m2);
-
-        List<Module> mList = new ArrayList<>();
-        mList.add(m1);
-        mList.add(m2);
-        UserModule um = new UserModule(user, mList, 60);
-        umr.save(um);
     }
 
     @GetMapping("/grade_calculator")
-    public String loadIndex(Model model){
+    public String loadIndex(Model model, HttpServletRequest request){
+        user = verifyCookieAuth(request);
+
+        if(umr.findDistinctByUsername(user) == null){
+            UserModule um = new UserModule(user, new ArrayList<>(), 0);
+            umr.save(um);
+        }
+
         UserModule userToShow = umr.findDistinctByUsername(user);
         model.addAttribute("user", userToShow);
         model.addAttribute("modules", userToShow.getModules());
@@ -75,6 +56,8 @@ public class ViewController {
                 oldM.setModuleName(m.getModuleName());
                 oldM.setCredits(m.getCredits());
                 mr.save(oldM);
+                UserModule curUser = umr.findDistinctByUsername(user);
+                curUser.updateCredits();
             }
         }else{
             //in case constructor ever changes to include extra code

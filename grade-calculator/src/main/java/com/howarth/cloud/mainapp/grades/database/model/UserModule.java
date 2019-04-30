@@ -102,7 +102,7 @@ public class UserModule {
             double boundary = ((10 * i) + 40) * totalCredits;
             double diff = boundary - current;
             if(diff < 0) diff = 0;
-            targets[i] = diff / getRemainingCredits();
+            if(getRemainingCredits() != 0) targets[i] = diff / getRemainingCredits();
         }
 
         return targets;
@@ -110,11 +110,7 @@ public class UserModule {
 
     public void addModule(Module module){
         this.modules.add(module);
-        updateAverage();
-    }
-
-    public void addModules(List<Module> modules){
-        this.modules.addAll(modules);
+        updateCredits();
         updateAverage();
     }
 
@@ -134,6 +130,14 @@ public class UserModule {
 
     public void delModule(Module module){
         modules.remove(module);
+        updateCredits();
         updateAverage();
+    }
+
+    public void updateCredits(){
+        this.totalCredits = 0;
+        for(Module m : modules){
+            this.totalCredits += m.getCredits();
+        }
     }
 }

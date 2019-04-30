@@ -25,34 +25,38 @@ public class ViewController {
         this.mr = mr;
         this.gr = gr;
 
-        //TODO: Handle new user setup
-        //TODO: Find actual current user
-
         umr.deleteAll();
         mr.deleteAll();
         gr.deleteAll();
 
-        List<Grade> grades1 = new ArrayList<>();
-        List<Grade> grades2 = new ArrayList<>();
-        grades1.add(new Grade("Assignment 1", 20, 20, 40));
-        grades1.add(new Grade("Assignment 2", 20, 20, 40));
-        grades1.add(new Grade("Assignment 3", 8, 10, 20));
-        grades2.add(new Grade("Assignment 1", 20, 20, 40));
-        grades2.add(new Grade("Assignment 2", 20, 20, 20));
-        grades2.add(new Grade("Assignment 3", 8, 10, 20));
-        gr.save(grades1);
-        gr.save(grades2);
+        if(umr.findDistinctByUsername(user) == null){
+            UserModule um = new UserModule(user, new ArrayList<>(), 0);
+            umr.save(um);
+        }
 
-        Module m1 = new Module("COM4519", 10, grades1);
-        Module m2 = new Module("COM4521", 20, grades2);
-        mr.save(m1);
-        mr.save(m2);
+        //TODO: Find actual current user
 
-        List<Module> mList = new ArrayList<>();
-        mList.add(m1);
-        mList.add(m2);
-        UserModule um = new UserModule(user, mList, 60);
-        umr.save(um);
+//        List<Grade> grades1 = new ArrayList<>();
+//        List<Grade> grades2 = new ArrayList<>();
+//        grades1.add(new Grade("Assignment 1", 20, 20, 40));
+//        grades1.add(new Grade("Assignment 2", 20, 20, 40));
+//        grades1.add(new Grade("Assignment 3", 8, 10, 20));
+//        grades2.add(new Grade("Assignment 1", 20, 20, 40));
+//        grades2.add(new Grade("Assignment 2", 20, 20, 20));
+//        grades2.add(new Grade("Assignment 3", 8, 10, 20));
+//        gr.save(grades1);
+//        gr.save(grades2);
+//
+//        Module m1 = new Module("COM4519", 10, grades1);
+//        Module m2 = new Module("COM4521", 20, grades2);
+//        mr.save(m1);
+//        mr.save(m2);
+//
+//        List<Module> mList = new ArrayList<>();
+//        mList.add(m1);
+//        mList.add(m2);
+//        UserModule um = new UserModule(user, mList, 60);
+//        umr.save(um);
     }
 
     @GetMapping("/grade_calculator")
@@ -75,6 +79,8 @@ public class ViewController {
                 oldM.setModuleName(m.getModuleName());
                 oldM.setCredits(m.getCredits());
                 mr.save(oldM);
+                UserModule curUser = umr.findDistinctByUsername(user);
+                curUser.updateCredits();
             }
         }else{
             //in case constructor ever changes to include extra code
