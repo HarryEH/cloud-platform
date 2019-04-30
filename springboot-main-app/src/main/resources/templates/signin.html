@@ -73,29 +73,7 @@
 </div>
 
 <script>
-    $("#loginSubmit").click(function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: "/login",
-            data: JSON.stringify({password: $('#password').val(), username: $('#username').val()}),
-            success: function (data, textStatus, request) {
-                $('#password').val("");
-                $('#username').val("");
-                if (document.referrer.includes("users/sign-up")) {
-                    document.location.replace("/");
-                } else {
-                    document.location.replace(document.referrer);
-                }
-            },
-            error: function (request, textStatus, errorThrown) {
-                $('#password').val("");
-                alert("Failure! Please try again\n" + errorThrown);
-            },
-            dataType: "json",
-            contentType: "application/json"
-        });
-    });
+    $("#loginSubmit").click(function(e){e.preventDefault(),$.ajax({type:"POST",url:"/login",data:JSON.stringify({password:$("#password").val(),username:$("#username").val()}),success:function(e,a,n){$("#password").val(""),$("#username").val(""),document.referrer.includes("users/sign-up")?document.location.replace("/"):document.location.replace(document.referrer)},error:function(e,a,n){$("#password").val(""),alert("Failure! Please try again\n"+n)},dataType:"json",contentType:"application/json"})});
 </script>
 </body>
 </html>

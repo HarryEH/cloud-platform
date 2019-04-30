@@ -69,25 +69,7 @@
 </div>
 
 <script>
-    $("#signupSubmit").click(function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: "/users/sign-up",
-            data: JSON.stringify({password: $('#signupPassword').val(), username: $('#signupUsername').val()}),
-            success: function (data, textStatus, request) {
-                $('#signupPassword').val("");
-                $('#signupUsername').val("");
-                document.location.replace("/users/sign-in");
-            },
-            error: function (request, textStatus, errorThrown) {
-                $('#signupPassword').val("");
-                alert("Failure! Please try again\nPlease try a different username.\n" + errorThrown);
-            },
-            dataType: "json",
-            contentType: "application/json"
-        });
-    });
+    $("#signupSubmit").click(function(n){n.preventDefault(),$.ajax({type:"POST",url:"/users/sign-up",data:JSON.stringify({password:$("#signupPassword").val(),username:$("#signupUsername").val()}),success:function(n,s,a){$("#signupPassword").val(""),$("#signupUsername").val(""),document.location.replace("/users/sign-in")},error:function(n,s,a){$("#signupPassword").val(""),alert("Failure! Please try again\nPlease try a different username.\n"+a)},dataType:"json",contentType:"application/json"})});
 </script>
 </body>
 </html>
