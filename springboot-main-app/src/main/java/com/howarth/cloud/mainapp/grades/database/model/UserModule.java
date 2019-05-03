@@ -116,16 +116,16 @@ public class UserModule {
 
     private void updateAverage(){
         average = 0;
-        int numModules = 0;
+        int numCredits = 0;
         for(Module m : modules){
             //if progress has actually been made on module (i.e. not 0 because just started)
             if(m.getRemaining() < 100.0){
                 average += m.getAverage();
-                numModules ++;
+                numCredits += m.getCredits();
             }
         }
-        if(numModules == 0) numModules = 1;
-        average = average / numModules;
+        if(numCredits == 0) numCredits = 1;
+        average = average / numCredits;
     }
 
     public void delModule(Module module){

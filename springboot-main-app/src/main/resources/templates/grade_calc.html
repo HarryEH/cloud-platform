@@ -55,7 +55,7 @@
                                 <button type="button" class="btn btn-primary col-md-2 float-right" data-toggle="modal" data-target="#editM"
                                         th:attr="data-module_id=*{getId()}, data-module_name=*{getModuleName()},
                                         data-module_credits=*{getCredits()}">Edit Module</button>
-                                <a th:href="@{/delete_module(moduleId=*{getId()}, userId=${user.getId()})}" class="btn btn-danger col-md-2">Delete</a>
+                                <a th:href="@{/grade_calculator/delete_module(moduleId=*{getId()}, userId=${user.getId()})}" class="btn btn-danger col-md-2">Delete</a>
                             </div>
                             <div th:id="${'card-element-' + ind.count}" class="collapse pl-4">
                                 <div class="card" th:each="g : ${m.getGrades()}">
@@ -68,7 +68,7 @@
                                                 data-ass_weight=*{getWeight()}, data-remaining=${m.getRemaining()}">
                                             Edit</button>
 
-                                        <a th:href="@{/delete_grade(gradeId=*{getId()}, moduleId=${m.getId()})}" class="btn btn-danger col-md-1">Delete</a>
+                                        <a th:href="@{/grade_calculator/delete_grade(gradeId=*{getId()}, moduleId=${m.getId()})}" class="btn btn-danger col-md-1">Delete</a>
                                     </span>
                                 </div>
                                 <div class="card" th:object="${m}">
