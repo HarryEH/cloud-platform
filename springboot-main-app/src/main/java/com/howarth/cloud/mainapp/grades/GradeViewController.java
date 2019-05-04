@@ -6,15 +6,21 @@ import com.howarth.cloud.mainapp.grades.database.UserModuleRepository;
 import com.howarth.cloud.mainapp.grades.database.model.Grade;
 import com.howarth.cloud.mainapp.grades.database.model.Module;
 import com.howarth.cloud.mainapp.grades.database.model.UserModule;
+import com.howarth.cloud.mainapp.security.SecurityConstants;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyCookieAuth;
+import static com.howarth.cloud.mainapp.security.SecurityConstants.ACCESS_TOKEN;
 
 @Controller
 public class GradeViewController {
@@ -31,6 +37,7 @@ public class GradeViewController {
 
     @GetMapping("/grade_calculator")
     public String loadIndex(Model model, HttpServletRequest request){
+        informPaymentServer(request);
         user = verifyCookieAuth(request);
 
         if(umr.findDistinctByUsername(user) == null){
@@ -121,5 +128,35 @@ public class GradeViewController {
         mr.delete(mId);
 
         return "redirect:/grade_calculator";
+    }
+
+    private void informPaymentServer(HttpServletRequest request) {
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+
+            // This automatically gets the correct URL to sent the request to.
+            final String URL = request.getScheme() + "://" + request.getServerName() +
+                    ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort()) +
+                    SecurityConstants.NEW_USAGE + "?app_name=grade_calculator&access_token=";
+
+            //access token
+            String token = "x.y.z";
+
+            for (Cookie c : request.getCookies()) {
+                if (c.getName().equals(ACCESS_TOKEN)) {
+                    token = c.getValue();
+                }
+            }
+
+            final String FINAL_URL = URL + token;
+
+            HttpGet req = new HttpGet(FINAL_URL);
+
+            httpClient.execute(req);
+
+            httpClient.close();
+        } catch (Exception ex) {
+            // handle exception here
+        }
     }
 }

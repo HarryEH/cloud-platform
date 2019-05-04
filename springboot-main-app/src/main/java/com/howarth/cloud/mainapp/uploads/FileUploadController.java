@@ -40,7 +40,7 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file, @RequestParam("logo") MultipartFile logo,
+    public String handleFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file,
                                    @RequestParam("description") String description, RedirectAttributes redirectAttributes) {
 
         if (file == null || description == null) {
@@ -74,7 +74,7 @@ public class FileUploadController {
         applicationApp.setDescription(description);
         applicationApp.setName(filename);
         applicationApp.setUsername(verifyCookieAuth(request));
-        applicationApp.setLogo(logo.getOriginalFilename());
+        applicationApp.setLogo("this is so irrelevant");
 
         applicationAppRepository.save(applicationApp);
 
