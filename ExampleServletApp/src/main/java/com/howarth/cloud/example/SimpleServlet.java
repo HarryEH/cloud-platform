@@ -42,7 +42,7 @@ public class SimpleServlet extends HttpServlet {
 			// This automatically gets the correct URL to sent the request to.
 			final String URL = request.getScheme() + "://" + request.getServerName() +
 					("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort()) +
-					"/peanut_bank/usage?app_name=ExampleServletApp-1&access_token=";
+					"/peanut_bank/usage?app_name=ExampleAppUpload&access_token=";
 
 			//access token
 			String token = getCookieToken(request);
@@ -67,16 +67,20 @@ public class SimpleServlet extends HttpServlet {
 			// This automatically gets the correct URL to sent the request to.
 			final String URL = request.getScheme() + "://" + request.getServerName() +
 					("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort()) +
-					"/user/verify_token?access_token=";
+					"/users/verify_token?access_token=";
 
 			//access token
 			String token = getCookieToken(request);
 
 			final String FINAL_URL = URL + token;
 
+			System.out.println(FINAL_URL);
+
 			HttpGet req = new HttpGet(FINAL_URL);
 
 			CloseableHttpResponse response = httpClient.execute(req);
+
+			System.out.println(EntityUtils.toString(response.getEntity()));
 
 			String json = EntityUtils.toString(response.getEntity());
 			JSONObject jsonObject = new JSONObject(json);
