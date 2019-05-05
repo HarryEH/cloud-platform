@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="ExampleServletApp-1.war">
+    <root id="archive" name="ExampleAppUpload.war">
       <element id="artifact" artifact-name="ExampleServletApp:war exploded" />
     </root>
   </artifact>

@@ -84,14 +84,15 @@
 
     <div class="row justify-content-around">
         <div class="col-md-10">
-            <table class="table">
-                <thead>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <th scope="col">App Name</th>
                     <th scope="col">App Creator</th>
                     <th scope="col">Description</th>
                     <th scope="col">Link</th>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr scope="row" th:each="app : ${apps}">
                         <td th:text="${app.name}">
                         </td>
@@ -103,8 +104,9 @@
                             <a class="btn btn-lg btn-primary" th:href="${app.name}" th:text="${app.name}"></a>
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
