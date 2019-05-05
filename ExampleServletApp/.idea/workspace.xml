@@ -4,8 +4,6 @@
     <list default="true" id="e9c46730-6e63-40ff-8275-bf5b6606e74c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/howarth/cloud/example/SimpleServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howarth/cloud/example/SimpleServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot-main-app/src/main/java/com/howarth/cloud/mainapp/uploads/storage/StorageProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springboot-main-app/src/main/java/com/howarth/cloud/mainapp/uploads/storage/StorageProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot-main-app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../springboot-main-app/src/main/resources/application.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,12 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/howarth/cloud/example/SimpleServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
-              <folding>
-                <element signature="e#3446#3447#0" expanded="true" />
-                <element signature="e#3524#3525#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="402">
+              <caret line="84" column="31" lean-forward="true" selection-start-line="84" selection-start-column="31" selection-end-line="84" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -67,6 +61,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -124,7 +119,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -203,16 +197,19 @@
       <workItem from="1556956756244" duration="1823000" />
       <workItem from="1557054441132" duration="554000" />
       <workItem from="1557060475946" duration="525000" />
+      <workItem from="1557065288006" duration="281000" />
+      <workItem from="1557067040640" duration="86000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2902000" />
+    <option name="totallyTimeSpent" value="3269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25579977" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26190478" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -271,12 +268,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/howarth/cloud/example/SimpleServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
-          <folding>
-            <element signature="e#3446#3447#0" expanded="true" />
-            <element signature="e#3524#3525#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="402">
+          <caret line="84" column="31" lean-forward="true" selection-start-line="84" selection-start-column="31" selection-end-line="84" selection-end-column="31" />
         </state>
       </provider>
     </entry>

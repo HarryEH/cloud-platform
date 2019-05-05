@@ -80,16 +80,15 @@ public class SimpleServlet extends HttpServlet {
 
 			CloseableHttpResponse response = httpClient.execute(req);
 
-			System.out.println(EntityUtils.toString(response.getEntity()));
-
-			String json = EntityUtils.toString(response.getEntity());
-			JSONObject jsonObject = new JSONObject(json);
-			boolean valid = (boolean) jsonObject.get("verified");
-			String user = (String) jsonObject.get("username");
-
+			final String responseJson = EntityUtils.toString(response.getEntity());
 
 			httpClient.close();
-			return valid;
+
+			System.out.println(responseJson);
+			System.out.println(responseJson.contains("true"));
+			System.out.println("see above^");
+
+			return responseJson.contains("true");
 		} catch (Exception ex) {
 			// handle exception here
 		}
