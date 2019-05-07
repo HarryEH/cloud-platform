@@ -3,13 +3,11 @@ package com.howarth.cloud.mainapp.peanutbank;
 import com.howarth.cloud.mainapp.peanutbank.database.BankAccountRepository;
 import com.howarth.cloud.mainapp.peanutbank.database.BankChargeRepository;
 import com.howarth.cloud.mainapp.peanutbank.database.model.BankCharge;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.List;
 
 import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyCookieAuth;

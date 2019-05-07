@@ -64,10 +64,10 @@
                         <th scope="col">App Name</th>
                         </thead>
                         <tbody>
-                        <tr scope="row" th:each="app : ${charges}">
-                            <td th:text="${app.chargeDate}">
+                        <tr scope="row" th:each="charge : ${charges}">
+                            <td th:text="${charge.getChargeDate()}">
                             </td>
-                            <td th:text="${app.appName}">
+                            <td th:text="${charge.getApp_name()}">
                             </td>
                         </tr>
                         </tbody>

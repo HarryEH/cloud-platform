@@ -40,7 +40,13 @@
 <div class="container">
 
     <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4">
+                <img alt="flatboard image" class="img-fluid" src="images/undraw_graduation.svg"></img>
+            </div>
+        </div>
         <h1 class="display-4">Academic Gateway</h1>
+
         <h4 th:text="${message}"></h4>
 
         <hr class="my-4"></hr>
@@ -67,7 +73,7 @@
 
             <div th:if="${loggedIn}">
                 <div class="col-sm-6">
-                    <a class="btn btn-danger btn-lg" href="/upload">Upload App</a>
+                    <a class="btn btn-warning btn-lg" href="/upload">Upload App</a>
                 </div>
             </div>
 
@@ -76,6 +82,11 @@
                     <a class="btn btn-info btn-lg" href="/peanut_bank">Peanut Bank</a>
                 </div>
             </div>
+
+            <div th:if="${loggedIn}">
+                <div class="col-sm-6">
+                    <a class="btn btn-danger btn-lg" id="logOutButton">Log Out</a>
+                </div>
 
 
         </div>
@@ -114,6 +125,7 @@
 
 
 <script>
+    $("#logOutButton").click(function(n){n.preventDefault(),$.ajax({type:"POST",url:"/users/sign-out",data:JSON.stringify({}),success:function(n,t,a){window.location.reload()},error:function(n,t,a){alert("Failure! Please try again\n"+a)},dataType:"json",contentType:"application/json"})});
 </script>
 </body>
 </html>

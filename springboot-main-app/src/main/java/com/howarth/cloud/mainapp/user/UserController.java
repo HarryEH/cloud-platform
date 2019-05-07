@@ -1,5 +1,6 @@
 package com.howarth.cloud.mainapp.user;
 
+import com.howarth.cloud.mainapp.peanutbank.ValidUseToken;
 import com.howarth.cloud.mainapp.security.SecurityConstants;
 import com.howarth.cloud.mainapp.security.VerifiedToken;
 import org.apache.http.client.methods.HttpGet;
@@ -12,7 +13,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 import static com.howarth.cloud.mainapp.security.JWTAuthorizationFilter.verifyToken;
@@ -48,6 +52,14 @@ public class UserController {
         createBankAccount(user.getUsername(), 0, request);
 
         return user;
+    }
+
+    @PostMapping("/sign-out")
+    public ValidUseToken signOut(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = new Cookie("access_token", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return new ValidUseToken("no", false);
     }
 
 
