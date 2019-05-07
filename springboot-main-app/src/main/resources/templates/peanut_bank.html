@@ -55,6 +55,27 @@
         <p class="lead">Charging works like this: You are charged 5 peanuts for using an application. You will only be charged once per day per application. 3 peanuts go to the application owner, and 2 go to the platform creators!</p>
         <hr class="my-4"></hr>
 
+        <div class="row justify-content-around">
+            <div class="col-md-10">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <th scope="col">Charge Time</th>
+                        <th scope="col">App Name</th>
+                        </thead>
+                        <tbody>
+                        <tr scope="row" th:each="app : ${charges}">
+                            <td th:text="${app.chargeDate}">
+                            </td>
+                            <td th:text="${app.appName}">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
