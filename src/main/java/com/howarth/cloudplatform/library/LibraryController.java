@@ -33,7 +33,7 @@ public class LibraryController {
     private final String regexPattern = "([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\\s?[0-9][A-Za-z]{2})";
     private final String diamondIcPostcode = "S3+7RD";
     private final String rhhPostcode = "S10+2JF";
-    private final String API_KEY = "AIzaSyDCIl9nnsYUy9BfozMtZY3YO3C-1Jm6noQ";
+    private final String API_KEY = "EXAMPLE_API_KEY";
 
     private DiamondRepository diamondRepository;
     private IcRepository icRepository;

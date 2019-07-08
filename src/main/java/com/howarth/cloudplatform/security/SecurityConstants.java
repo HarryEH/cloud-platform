@@ -19,4 +19,8 @@ public class SecurityConstants {
 
     public static final String CREATE_ACCOUNT = "/peanut_bank/new_account";
     public static final String NEW_USAGE = "/peanut_bank/usage";
+
+
+    public static final String HAT_IMG = "/images/undraw_graduation.svg";
+    public static final String FAVICO = "/favicon.ico";
 }
