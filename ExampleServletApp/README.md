@@ -1,1 +1,4 @@
-For code explanation and additional configurations read the tutorial at https://javatutorial.net/java-servlet-example
+# Setup and Run
+
+* Compile using ```mvn install```
+* You can then upload the app to the platform!
