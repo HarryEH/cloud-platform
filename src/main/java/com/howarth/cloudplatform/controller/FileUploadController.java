@@ -1,9 +1,9 @@
 package com.howarth.cloudplatform.controller;
 
-import com.howarth.cloudplatform.service.StorageService;
-import com.howarth.cloudplatform.model.ApplicationApp;
 import com.howarth.cloudplatform.dao.ApplicationAppDao;
 import com.howarth.cloudplatform.exception.StorageFileNotFoundException;
+import com.howarth.cloudplatform.model.ApplicationApp;
+import com.howarth.cloudplatform.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,11 +28,11 @@ public class FileUploadController {
     private final ApplicationAppDao applicationAppDao;
 
     @Autowired
-    public FileUploadController(StorageService storageService, ApplicationAppDao applicationAppDao) {
+    public FileUploadController(StorageService storageService,
+                                ApplicationAppDao applicationAppDao) {
         this.storageService = storageService;
         this.applicationAppDao = applicationAppDao;
     }
-
 
     @GetMapping("/upload")
     public String listUploadedFiles(Model model) {
@@ -40,8 +40,10 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file,
-                                   @RequestParam("description") String description, RedirectAttributes redirectAttributes) {
+    public String handleFileUpload(HttpServletRequest request,
+                                   @RequestParam("file") MultipartFile file,
+                                   @RequestParam("description") String description,
+                                   RedirectAttributes redirectAttributes) {
 
         if (file == null || description == null) {
             redirectAttributes.addFlashAttribute("message",
@@ -83,7 +85,7 @@ public class FileUploadController {
 
         // ADD COMMAND LINE runner!!
         try {
-            Process p = Runtime.getRuntime().exec("cp /var/lib/tomcat8/webapps/ROOT/upload-dir/" + file.getOriginalFilename() + " /var/lib/tomcat8/webapps/");
+            Process p = Runtime.getRuntime().exec("cp upload-dir/" + file.getOriginalFilename() + " webapps/");
         } catch (IOException e) {
             e.printStackTrace();
         }

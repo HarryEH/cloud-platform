@@ -47,8 +47,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         } catch (JWTVerificationException exc) {
             return null;
         }
-
-
     }
 
     public static String verifyToken(final String token, final String secret, final String prefix) {

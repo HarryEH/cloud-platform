@@ -22,12 +22,6 @@ public class BankCharge {
     public BankCharge() {
     }
 
-    public BankCharge(String username, String app_name, Timestamp chargeDate) {
-        this.username = username;
-        this.appName = app_name;
-        this.chargeDate = chargeDate;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -36,12 +30,12 @@ public class BankCharge {
         this.username = username;
     }
 
-    public String getApp_name() {
+    public String getAppName() {
         return appName;
     }
 
-    public void setApp_name(String app_name) {
-        this.appName = app_name;
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 
     public Timestamp getChargeDate() {

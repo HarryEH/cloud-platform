@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface BankChargeDao extends JpaRepository<BankCharge, Long> {
     BankCharge findByUsernameAndAppName(String username, String appName);
+
     List<BankCharge> findByUsername(String username);
 }

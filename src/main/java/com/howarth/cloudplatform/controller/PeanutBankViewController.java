@@ -3,6 +3,7 @@ package com.howarth.cloudplatform.controller;
 import com.howarth.cloudplatform.dao.BankAccountDao;
 import com.howarth.cloudplatform.dao.BankChargeDao;
 import com.howarth.cloudplatform.model.BankCharge;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,9 @@ public class PeanutBankViewController {
     private final BankAccountDao bankAccountDao;
     private final BankChargeDao bankChargeDao;
 
-    public PeanutBankViewController(BankAccountDao bankAccountDao, BankChargeDao bankChargeDao) {
+    @Autowired
+    public PeanutBankViewController(BankAccountDao bankAccountDao,
+                                    BankChargeDao bankChargeDao) {
         this.bankAccountDao = bankAccountDao;
         this.bankChargeDao = bankChargeDao;
     }
