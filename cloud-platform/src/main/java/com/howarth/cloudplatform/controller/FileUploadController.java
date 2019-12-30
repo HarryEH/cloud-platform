@@ -5,6 +5,7 @@ import com.howarth.cloudplatform.exception.StorageFileNotFoundException;
 import com.howarth.cloudplatform.model.ApplicationApp;
 import com.howarth.cloudplatform.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,9 @@ public class FileUploadController {
     public static final String REDIRECT_HOME_UPLOAD = "redirect:/upload";
     private final StorageService storageService;
     private final ApplicationAppDao applicationAppDao;
+
+    @Value("${tomcat.home}")
+    private String tomcatPath;
 
     @Autowired
     public FileUploadController(StorageService storageService,
@@ -85,7 +89,7 @@ public class FileUploadController {
 
         // ADD COMMAND LINE runner!!
         try {
-            Process p = Runtime.getRuntime().exec("cp upload-dir/" + file.getOriginalFilename() + " webapps/");
+            Process p = Runtime.getRuntime().exec("cp "+tomcatPath+"/webapps/ROOT/upload-dir/" + file.getOriginalFilename() + " " + tomcatPath + "/webapps/");
         } catch (IOException e) {
             e.printStackTrace();
         }
