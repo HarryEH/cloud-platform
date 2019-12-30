@@ -1,6 +1,6 @@
 package com.howarth.cloudplatform.security;
 
-import com.howarth.cloudplatform.user.UserDetailsServiceImpl;
+import com.howarth.cloudplatform.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

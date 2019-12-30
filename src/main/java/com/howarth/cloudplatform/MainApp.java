@@ -1,7 +1,7 @@
 package com.howarth.cloudplatform;
 
-import com.howarth.cloudplatform.fileuploads.storage.StorageProperties;
-import com.howarth.cloudplatform.fileuploads.storage.StorageService;
+import com.howarth.cloudplatform.config.StorageProperties;
+import com.howarth.cloudplatform.service.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

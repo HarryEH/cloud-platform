@@ -3,7 +3,7 @@ package com.howarth.cloudplatform.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.howarth.cloudplatform.user.database.ApplicationUser;
+import com.howarth.cloudplatform.model.ApplicationUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
