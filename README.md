@@ -2,20 +2,13 @@
 This cloud platform, written in Java using the Springboot framework, is designed to host apps
 
 # Setup and Run
-This application is designed to be deployed as 'ROOT' on a tomcat8 server.
-* Make sure `application.properties` has details of your MySql instance in it. Replace the values as necessary. The file is currently setup to be: 
-```
-spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-spring.datasource.url=jdbc:mysql://localhost:3306/example
-spring.datasource.username=username
-spring.datasource.password=example
-```
+The cloud-platform application is designed to be deployed as 'ROOT' on a tomcat8 server. However it is currently configured to use H2 rather than mysql.
 
 * Compile using ```mvn install``` 
-* Then put the compiled ROOT.war into your tomcat8 instance which will auto deploy it
+* Then put the compiled ROOT.war into your tomcat8 instance which will auto deploy it.
 
 ## App Requirements
-Once the cloud platform is deployed you can deploy additional apps. For them to function perfectly they need to follow the requirements below.
+Once the cloud platform is deployed you can deploy additional apps. For them to function perfectly they need to follow the requirements below. You have to have the app deployed as ROOT to get this to work.
 
 * WAR no larger than 50MB
 * Authentication API:
