@@ -1,8 +1,7 @@
 package com.howarth.cloudplatform.service;
 
-import com.howarth.cloudplatform.config.StorageProperties;
 import com.howarth.cloudplatform.exception.StorageException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,11 +16,16 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class FileSystemStorageService implements StorageService {
 
+    @Value("${tomcat.home}")
+    private String tomcatPath;
+
+    @Value("${tomcat.upload-dir}")
+    private String uploadDir;
+
     private final Path rootLocation;
 
-    @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
-        this.rootLocation = Paths.get(properties.getLocation());
+    public FileSystemStorageService() {
+        this.rootLocation = Paths.get(tomcatPath+uploadDir);
     }
 
     @Override

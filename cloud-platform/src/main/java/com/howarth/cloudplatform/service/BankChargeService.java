@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Calendar;
 
 @Service
 public class BankChargeService {
-
     private final BankChargeDao bankChargeDao;
 
     @Autowired
@@ -21,13 +21,15 @@ public class BankChargeService {
     public boolean isAppUsageChargeable(String username, String appName) {
         BankCharge bankCharge = bankChargeDao.findByUsernameAndAppName(username, appName);
 
-        Calendar calendar = Calendar.getInstance();
-        Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
+        return bankCharge != null && !isChargeFromToday(bankCharge);
+    }
 
-        return bankCharge != null
-                && currentTimestamp.getDate() == bankCharge.getChargeDate().getDate()
-                && currentTimestamp.getMonth() == bankCharge.getChargeDate().getMonth()
-                && currentTimestamp.getYear() == bankCharge.getChargeDate().getYear();
+    private boolean isChargeFromToday(BankCharge bankCharge) {
+        Timestamp today = Timestamp.from(Instant.now());
+
+        return today.getDate() == bankCharge.getChargeDate().getDate()
+                && today.getMonth() == bankCharge.getChargeDate().getMonth()
+                && today.getYear() == bankCharge.getChargeDate().getYear();
     }
 
     public void createBankCharge(String username, String appName) {
