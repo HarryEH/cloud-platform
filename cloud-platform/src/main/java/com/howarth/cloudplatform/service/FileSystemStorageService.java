@@ -16,16 +16,14 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class FileSystemStorageService implements StorageService {
 
+    private final Path rootLocation;
     @Value("${tomcat.home}")
     private String tomcatPath;
-
     @Value("${tomcat.upload-dir}")
     private String uploadDir;
 
-    private final Path rootLocation;
-
     public FileSystemStorageService() {
-        this.rootLocation = Paths.get(tomcatPath+uploadDir);
+        this.rootLocation = Paths.get(tomcatPath + uploadDir);
     }
 
     @Override
